@@ -3,51 +3,92 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CareerBridge – Recruitment Management Portal</title>
-<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#123d30">
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#000000">
 <link rel="icon" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="CareerBridge"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--g9:#123d30;--g8:#1a4d3d;--g6:#2f6b55;--g1:#e3efe8;--mint:#c9ecd9;--bg:#f6f4ef;--side:#efece5;--beige:#e7e1d3;--card:#fff;--ink:#1d2622;--mut:#6b736e;--line:#e6e2d8;--red:#c0392b;--amber:#b7791f}
-*{box-sizing:border-box}body{margin:0;font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+:root{--g9:#0a0a0a;--g8:#262626;--g6:#404040;--g1:#efefef;--mint:#ffffff;--bg:#fafafa;--side:#f4f4f4;--beige:#e9e9e9;--card:#fff;--ink:#1d2622;--mut:#6b736e;--line:#e6e6e6;--red:#111111;--amber:#555555}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;background:var(--bg);color:var(--ink);font-size:14px}
 a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}
 .app{display:flex;min-height:100vh}.side{width:232px;background:var(--side);border-right:1px solid var(--line);padding:22px 14px;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;gap:2px;overflow:auto}
 .brand{font-weight:800;font-size:20px;color:var(--g9);padding:0 10px}.brand small{display:block;font-weight:500;font-size:12px;color:var(--mut)}
-.nav{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#3c4741;cursor:pointer;font-weight:500}.nav:hover{background:#e8e4da}.nav.on{background:var(--beige);color:var(--g9);font-weight:700;box-shadow:inset -3px 0 0 var(--g9)}
+.nav{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#3c4741;cursor:pointer;font-weight:500}.nav:hover{background:#ececec}.nav.on{background:var(--beige);color:var(--g9);font-weight:700;box-shadow:inset -3px 0 0 var(--g9)}
 .sec{font-size:10px;letter-spacing:.12em;color:var(--mut);margin:14px 12px 4px;font-weight:700}
 .main{margin-left:232px;flex:1;min-width:0}.top{display:flex;align-items:center;gap:14px;padding:12px 28px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:5}
-.search{flex:1;max-width:420px;position:relative}.search input{width:100%;padding:9px 14px;border-radius:20px;border:1px solid var(--line);background:#efece6}
+.search{flex:1;max-width:420px;position:relative}.search input{width:100%;padding:9px 14px;border-radius:20px;border:1px solid var(--line);background:#f1f1f1}
 .drop{position:absolute;top:42px;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px #0002;padding:6px;display:none}.drop a{display:block;padding:7px 10px;border-radius:6px}.drop a:hover{background:var(--bg)}
 .page{padding:26px 28px;max-width:1280px}h1{font-size:28px;margin:0 0 4px;color:var(--g9);font-weight:800}.sub{color:var(--mut);margin:0 0 20px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}.dark{background:var(--g9);color:#eaf5ef;border:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}.dark{background:var(--g9);color:#ffffff;border:none}
 .grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:2fr 1fr}
 .k{font-size:11px;letter-spacing:.08em;color:var(--mut);font-weight:700;text-transform:uppercase}.big{font-size:30px;font-weight:800;margin:6px 0}
-.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;cursor:pointer;font-weight:600}.btn:hover{background:#f3f1ea}.pri{background:var(--g9);color:#fff;border-color:var(--g9)}.pri:hover{background:var(--g8)}.tan{background:var(--beige);border-color:var(--beige)}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;cursor:pointer;font-weight:600}.btn:hover{background:#f2f2f2}.pri{background:var(--g9);color:#fff;border-color:var(--g9)}.pri:hover{background:var(--g8)}.tan{background:var(--beige);border-color:var(--beige)}
 .btn:disabled{opacity:.55;cursor:wait}.post{margin-top:auto;padding:12px;text-align:center}
 .pill{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700;background:var(--g1);color:var(--g9)}
-.st-applied{background:#e6eefb;color:#2952a3}.st-screening{background:#ddf2ee;color:#11695c}.st-shortlisted{background:#eee6fb;color:#6a3fb5}.st-interview{background:#fbe9de;color:#b2501a}.st-offer,.st-hired{background:#dff3e3;color:#1e7a3a}.st-rejected{background:#f7e1df;color:#a33}
-.st-draft,.st-closed,.st-archived{background:#eee;color:#555}.st-paused{background:#f4ead2;color:#8a6d3b}
-table{width:100%;border-collapse:collapse}th{font-size:11px;letter-spacing:.06em;color:var(--mut);text-align:left;padding:10px;border-bottom:1px solid var(--line);text-transform:uppercase}td{padding:11px 10px;border-bottom:1px solid #f0ede6}tr.click:hover td{background:#faf8f3;cursor:pointer}
+.st-applied{background:#f0f0f0;color:#222}.st-screening{background:#e4e4e4;color:#222}.st-shortlisted{background:#e9e9e9;color:#222}.st-interview{background:#e9e9e9;color:#222}.st-offer,.st-hired{background:#0a0a0a;color:#fff}.st-rejected{background:#ececec;color:#222}
+.st-draft,.st-closed,.st-archived{background:#eee;color:#222}.st-paused{background:#eeeeee;color:#222}
+table{width:100%;border-collapse:collapse}th{font-size:11px;letter-spacing:.06em;color:var(--mut);text-align:left;padding:10px;border-bottom:1px solid var(--line);text-transform:uppercase}td{padding:11px 10px;border-bottom:1px solid #ededed}tr.click:hover td{background:#f7f7f7;cursor:pointer}
 .av{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex:none}
 .row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}.wrap{flex-wrap:wrap}.mut{color:var(--mut)}.small{font-size:12px}
-.bar{height:8px;background:#ece9e1;border-radius:6px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--g9)}
+.bar{height:8px;background:#ebebeb;border-radius:6px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--g9)}
 .funnel .f{display:flex;align-items:center;gap:12px;margin:6px 0}.funnel .fb{height:40px;border-radius:8px;display:flex;align-items:center;padding:0 14px;color:#fff;font-weight:600;min-width:120px}
 input.in,select.in,textarea.in{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:#fff}label{font-size:12px;font-weight:700;color:#444;display:block;margin:10px 0 4px}
 .modal{position:fixed;inset:0;background:#0006;display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}.modal .card{width:min(640px,100%);max-height:90vh;overflow:auto}
 .toast{position:fixed;bottom:20px;right:20px;background:var(--g9);color:#fff;padding:12px 16px;border-radius:10px;z-index:60;max-width:380px}.toast.err{background:var(--red)}
-.chip{display:inline-block;border:1px solid var(--line);border-radius:7px;padding:3px 9px;margin:3px;font-size:12px;background:#faf9f5}.chip.ok{border-color:#9fd3b4;background:#eaf7ef}.chip.no{border-color:#efc2bd;background:#fbefed}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:7px;padding:3px 9px;margin:3px;font-size:12px;background:#fafafa}.chip.ok{border-color:#bdbdbd;background:#f2f2f2}.chip.no{border-color:#bdbdbd;background:#f5f5f5}
 .msg{padding:10px 12px;border-radius:10px;margin:8px 0;max-width:80%}.msg.recruiter{background:var(--g1);margin-left:auto}.msg.candidate{background:#fff;border:1px solid var(--line)}.msg.system{background:transparent;color:var(--mut);font-size:12px;text-align:center;max-width:100%}
-.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}.login .l{background:var(--g9);color:#e5f3eb;padding:60px;display:flex;flex-direction:column;justify-content:center}.login .r{display:flex;align-items:center;justify-content:center;padding:30px}
-.spark{display:flex;align-items:flex-end;gap:4px;height:46px}.spark i{flex:1;background:#d7e6dd;border-radius:3px}.spark i:last-child{background:var(--g9)}
+.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}.login .l{background:var(--g9);color:#ffffff;padding:60px;display:flex;flex-direction:column;justify-content:center}.login .r{display:flex;align-items:center;justify-content:center;padding:30px}
+.spark{display:flex;align-items:flex-end;gap:4px;height:46px}.spark i{flex:1;background:#dcdcdc;border-radius:3px}.spark i:last-child{background:var(--g9)}
 .md h3{margin:12px 0 6px}.md ul{padding-left:18px}
 #menuBtn,#installBtn{display:none}.shade{display:none}
 @media(max-width:900px){.side{display:flex;transform:translateX(-100%);transition:transform .2s;z-index:40;width:260px;box-shadow:0 0 30px #0003}.side.open{transform:none}.shade.open{display:block;position:fixed;inset:0;background:#0005;z-index:30}
 #menuBtn{display:inline-flex;font-size:22px;background:none;border:none;padding:4px 8px;cursor:pointer}.top{padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top))}.top .small,.top a.row>div{display:none}.search{max-width:none;flex:1}.top>div[style*='flex:1']{display:none}.page{overflow-x:hidden}.card{overflow-wrap:anywhere}
 h1{font-size:23px}.big{font-size:24px}table{display:block;overflow-x:auto;white-space:nowrap}.modal .card{max-height:85vh}.row.wrap>.in{width:100%!important}.main{margin-left:0}.g4,.g3,.g2,.g21,.login{grid-template-columns:1fr}.login .l{display:none}.page{padding:18px 16px}}
+
+/* ---------- app polish ---------- */
+.ic{width:18px;height:18px;flex:none}.nav .ic{opacity:.75}.nav.on .ic{opacity:1}
+.btn{transition:transform .08s,background .15s}.btn:active{transform:scale(.97)}
+.card{transition:box-shadow .2s}.card:hover{box-shadow:0 6px 24px #0000000d}
+.page{animation:pageIn .28s ease}@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+#topbar{position:fixed;top:0;left:0;height:3px;background:#000;z-index:100;width:0;transition:width .3s,opacity .3s;opacity:0}
+#topbar.go{opacity:1;width:70%}#topbar.done{width:100%;opacity:0}
+.skel{padding:26px 28px}.skel div{background:linear-gradient(90deg,#eee,#f7f7f7,#eee);background-size:200% 100%;animation:sh 1.1s infinite;border-radius:12px;margin-bottom:14px}@keyframes sh{to{background-position:-200% 0}}
+/* splash */
+#splash{position:fixed;inset:0;background:#000;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;transition:opacity .45s}
+#splash.hide{opacity:0;pointer-events:none}
+#splash .logo{width:96px;height:96px;border-radius:26px;background:#fff;display:flex;align-items:center;justify-content:center;animation:pop .7s cubic-bezier(.2,1.4,.4,1) both}
+#splash .logo svg{width:58px;height:58px}
+#splash h1{color:#fff;font-size:30px;margin:22px 0 4px;letter-spacing:-.5px;animation:up .6s .25s both}#splash p{opacity:.6;margin:0;animation:up .6s .4s both}
+#splash .dots{position:absolute;bottom:60px;display:flex;gap:6px}#splash .dots i{width:7px;height:7px;border-radius:50%;background:#fff;animation:blink 1s infinite}#splash .dots i:nth-child(2){animation-delay:.15s}#splash .dots i:nth-child(3){animation-delay:.3s}
+@keyframes pop{from{transform:scale(.4);opacity:0}}@keyframes up{from{transform:translateY(14px);opacity:0}}@keyframes blink{50%{opacity:.25}}
+/* onboarding */
+#onb{position:fixed;inset:0;background:#fff;z-index:150;display:flex;flex-direction:column}
+#onb .track{flex:1;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}#onb .track::-webkit-scrollbar{display:none}
+#onb .sl{min-width:100%;scroll-snap-align:center;display:flex;flex-direction:column;justify-content:center;padding:40px 32px;box-sizing:border-box}
+#onb .art{width:200px;height:200px;border-radius:50%;background:#f2f2f2;margin:0 auto 40px;display:flex;align-items:center;justify-content:center}
+#onb .art svg{width:90px;height:90px}#onb h2{font-size:28px;letter-spacing:-.5px;margin:0 0 10px}#onb p{color:#666;font-size:16px;line-height:1.55;margin:0}
+#onb .foot{padding:20px 28px max(28px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:12px}
+#onb .pg{display:flex;gap:6px;flex:1}#onb .pg i{height:6px;width:6px;border-radius:3px;background:#d4d4d4;transition:all .25s}#onb .pg i.on{width:22px;background:#000}
+#onb .roles{display:grid;gap:12px;margin-top:24px}#onb .role{display:flex;align-items:center;gap:14px;border:1.5px solid #e5e5e5;border-radius:16px;padding:16px;cursor:pointer;text-align:left;background:#fff}
+#onb .role:active{background:#f5f5f5}#onb .role b{display:block;font-size:16px}#onb .role span{color:#777;font-size:13px}#onb .role .ri{width:44px;height:44px;border-radius:12px;background:#000;color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.big-btn{background:#000;color:#fff;border:none;border-radius:14px;padding:15px 22px;font-weight:700;font-size:15px;cursor:pointer}
+/* bottom nav */
+.bnav{display:none}
+@media(max-width:900px){
+ input.in,select.in,textarea.in{font-size:16px;padding:12px 13px;border-radius:12px}.btn{padding:10px 14px;border-radius:12px}
+ .bnav{display:flex;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #e8e8e8;z-index:20;padding:6px 4px max(6px,env(safe-area-inset-bottom))}
+ .bnav a{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10.5px;color:#888;padding:4px 0;font-weight:600}.bnav a .ic{width:22px;height:22px}.bnav a.on{color:#000}
+ .bnav a.on .ic{stroke-width:2.4}.main{padding-bottom:80px}.top{background:#fff}.page{padding:16px 14px}.card{border-radius:16px}
+ .login{display:block;background:#fff}.login .l{display:flex!important;padding:56px 26px 80px;min-height:auto}.login .l h1{font-size:30px!important}.login .l p{font-size:15px!important;opacity:.75}
+ .login .r{min-height:auto;padding:0 14px 30px;margin-top:-50px;display:block}.login .r .card{width:100%!important;box-shadow:0 10px 40px #0000001a;border:none;padding:22px}
+ .g4{grid-template-columns:1fr 1fr!important}.grid[style*='repeat(6']{grid-template-columns:1fr 1fr 1fr!important}.card.row[style*='gap:6px']{display:grid;grid-template-columns:1fr 1fr;width:100%}.big{font-size:22px}.card{padding:15px}
+ .toast{left:14px;right:14px;bottom:90px;max-width:none;text-align:center;border-radius:14px}.modal{align-items:flex-end;padding:0}.modal .card{border-radius:22px 22px 0 0;width:100%;animation:sheet .25s ease}
+ @keyframes sheet{from{transform:translateY(40px);opacity:.5}}
+}
 </style>
 </head>
 <body>
-<div id="root"></div>
+<div id="topbar"></div><div id="root"></div>
 <script>
 const $ = (s, el = document) => el.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -58,7 +99,7 @@ const fmtTime = (d) => new Date(d).toLocaleTimeString([], { hour: '2-digit', min
 const fmtDT = (d) => `${fmtDate(d)}, ${fmtTime(d)}`;
 const money = (n) => n ? '₹' + (n >= 100000 ? (n / 100000).toFixed(1).replace('.0', '') + 'L' : n.toLocaleString('en-IN')) : '—';
 const initials = (n) => String(n || '?').split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase();
-const av = (n, c, s = 34) => `<span class="av" style="background:${c || '#2f6b55'};width:${s}px;height:${s}px;font-size:${s / 2.6}px">${esc(initials(n))}</span>`;
+const av = (n, c, s = 34) => `<span class="av" style="background:#111;width:${s}px;height:${s}px;font-size:${s / 2.6}px">${esc(initials(n))}</span>`;
 const pill = (s) => `<span class="pill st-${s}">${esc(cap(s))}</span>`;
 const ico = { dash: '▦', jobs: '💼', cand: '👥', int: '📅', msg: '💬', ana: '📈', rep: '📄', co: '🏢', rec: '🧑‍💼', bell: '🔔', set: '⚙️', help: '❓' };
 
@@ -83,13 +124,13 @@ const NAV = [['/', 'dash', 'Dashboard'], ['/jobs', 'jobs', 'Jobs'], ['/candidate
   null, ['/company', 'co', 'Company'], ['/recruiters', 'rec', 'Recruiters'], ['/notifications', 'bell', 'Notifications'], ['/settings', 'set', 'Settings']];
 
 function shell(active, body) {
-  return `<div class="app"><aside class="side"><div class="brand">CareerBridge<small>Employer Portal</small></div><div style="height:18px"></div>
+  return `<div class="app"><aside class="side"><div class="brand" style="display:flex;gap:10px;align-items:center"><span style="width:34px;height:34px;border-radius:10px;background:#000;display:flex;align-items:center;justify-content:center">${I('logo','style="stroke:#fff"')}</span><span>CareerBridge<small>Employer Portal</small></span></div><div style="height:18px"></div>
   ${NAV.map((n) => n ? `<a data-go href="${n[0]}" class="nav ${active === n[0] ? 'on' : ''}"><span>${ico[n[1]]}</span>${n[2]}</a>` : '<div class="sec">ORGANIZATION</div>').join('')}
-  <div style="height:12px"></div><a data-go href="/help" class="nav ${active === '/help' ? 'on' : ''}">${ico.help} Help Center</a><a class="nav" style="color:var(--red)" onclick="logout()">↪ Log Out</a>
+  <div style="height:12px"></div><a data-go href="/help" class="nav ${active === '/help' ? 'on' : ''}">${ico.help} Help Center</a><a class="nav" style="color:var(--red)" onclick="logout()">${I('out')} Log Out</a>
   <a data-go href="/jobs/new" class="btn pri post">＋ Post a New Job</a></aside>
   <div class="shade" onclick="toggleMenu(false)"></div><div class="main"><div class="top"><button id="menuBtn" onclick="toggleMenu()" aria-label="Menu">☰</button><div class="search"><input id="gs" placeholder="Search candidates, jobs…" autocomplete="off"><div class="drop" id="gsd"></div></div><div style="flex:1"></div>
-  <button id="installBtn" class="btn pri small" onclick="installApp()">⬇ Install app</button><a data-go href="/notifications" title="Notifications" style="font-size:18px">🔔</a><a data-go href="/profile" class="row"><div style="text-align:right"><b>${esc(ME.user.name)}</b><div class="small mut">${esc(ME.user.title || '')} · ${esc(ME.company.name)}</div></div>${av(ME.user.name, '#123d30', 36)}</a></div>
-  <div class="page" id="page">${body}</div></div></div>`;
+  <button id="installBtn" class="btn pri small" onclick="installApp()">⬇ Install app</button><a data-go href="/notifications" title="Notifications">${I('bell')}</a><a data-go href="/profile" class="row"><div style="text-align:right"><b>${esc(ME.user.name)}</b><div class="small mut">${esc(ME.user.title || '')} · ${esc(ME.company.name)}</div></div>${av(ME.user.name, '#0a0a0a', 36)}</a></div>
+  <div class="page" id="page">${body}</div></div>${bnav([['/', 'dash', 'Home'], ['/jobs', 'jobs', 'Jobs'], ['/candidates', 'cand', 'Candidates'], ['/interviews', 'int', 'Interviews'], ['/messages', 'msg', 'Inbox']], active)}</div>`;
 }
 function bindSearch() {
   const i = $('#gs'), d = $('#gsd'); if (!i) return; let t;
@@ -117,7 +158,7 @@ pages['/'] = async () => {
   const h = new Date().getHours(), greet = h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : 'Good Evening';
   const ch = d.apps_prev ? Math.round((d.apps_30 - d.apps_prev) / d.apps_prev * 100) : 100;
   const goal = Math.min(100, Math.round((d.hired + d.offers) / d.hiring_goal * 100));
-  const colors = ['#123d30', '#3f6e5c', '#6f9283', '#a7bdb3', '#d9e3dd'];
+  const colors = ['#0a0a0a', '#2b2b2b', '#5c5c5c', '#a3a3a3', '#d9d9d9'];
   const max = d.funnel[0].count || 1;
   return `<div class="row between wrap"><div><h1>${greet}, ${esc(ME.user.name.split(' ')[0])}</h1>
   <p class="sub" style="margin:0">You currently have <b>${d.active_jobs} Active Jobs</b>, <b>${d.applications} Applications</b>, <b>${d.interviews} Interviews</b>, and <b>${d.offers} Offers</b>.<br>Priority for today: ${esc(d.priority)}</p>
@@ -130,7 +171,7 @@ pages['/'] = async () => {
    <div class="card"><span class="pill">pipeline</span><div class="k" style="margin-top:10px">Interviews</div><div class="big">${d.interviews}</div><div class="small mut">${d.today.length} scheduled today</div></div>
    <div class="card"><span class="pill">avg match ${Math.round(d.avg_match)}%</span><div class="k" style="margin-top:10px">Offers Sent</div><div class="big">${d.offers}</div><div class="small mut">${d.hired} hired</div></div></div>
   <div class="grid g21" style="margin-top:16px"><div class="card funnel"><b>Recruitment Funnel</b><div class="small mut" style="margin-bottom:8px">Overall conversion across all roles</div>
-   ${d.funnel.map((f, i) => `<div class="f"><div class="fb" style="width:${Math.max(18, f.count / max * 100)}%;background:${colors[i]};color:${i > 2 ? '#123d30' : '#fff'}">0${i + 1} &nbsp; ${cap(f.stage)}</div><b>${f.count}</b>${i ? `<span class="small mut">${d.funnel[i - 1].count ? Math.round(f.count / d.funnel[i - 1].count * 100) : 0}% conversion</span>` : ''}</div>`).join('')}</div>
+   ${d.funnel.map((f, i) => `<div class="f"><div class="fb" style="width:${Math.max(18, f.count / max * 100)}%;background:${colors[i]};color:${i > 2 ? '#0a0a0a' : '#fff'}">0${i + 1} &nbsp; ${cap(f.stage)}</div><b>${f.count}</b>${i ? `<span class="small mut">${d.funnel[i - 1].count ? Math.round(f.count / d.funnel[i - 1].count * 100) : 0}% conversion</span>` : ''}</div>`).join('')}</div>
    <div class="card"><div class="row between"><b>Upcoming Today</b><span class="pill st-rejected">Live</span></div>
    ${d.today.length ? d.today.map((i) => `<div style="border-left:3px solid var(--g9);padding:8px 12px;margin:12px 0"><div class="small mut">🕑 ${fmtTime(i.scheduled_at)} · ${relTime(i.scheduled_at)}</div><b>${esc(i.type)}</b><div class="small">${esc(i.name)} · ${esc(i.job_title)}</div>
    <div class="row" style="margin-top:8px">${i.meeting_link ? `<a class="btn pri" target="_blank" href="${esc(i.meeting_link)}">Join Meet</a>` : ''}<a data-go class="btn" href="/candidates/${i.app_id}">Open</a></div></div>`).join('') : '<p class="mut">No interviews today.</p>'}
@@ -213,7 +254,7 @@ pages.candidate = async (id) => {
   <div class="row wrap"><a class="btn tan" href="#msgs">✉ Send Message</a><button class="btn pri" onclick="schedule(${a.id})">📅 Schedule Interview</button>
   <select class="in" style="width:170px" onchange="moveStage(${a.id},this.value)"><option value="">Move Stage ▾</option>${STAGES.map((s) => `<option value="${s}">${cap(s)}</option>`).join('')}</select></div></div>
   <div class="grid g21"><div class="grid">
-   <div class="card"><div class="row" style="align-items:flex-start;gap:18px">${av(a.name, a.avatar_color, 84)}<div style="flex:1"><div class="row wrap"><h2 style="margin:0">${esc(a.name)}</h2>${a.match_score >= 85 ? '<span class="pill">Top Match</span>' : ''}<span class="pill" style="background:var(--beige);color:#5b4a2b">${esc(a.department || '')}</span>${a.university_name ? `<span class="pill st-applied">🎓 ${esc(a.university_name)}</span>` : ''}</div>
+   <div class="card"><div class="row" style="align-items:flex-start;gap:18px">${av(a.name, a.avatar_color, 84)}<div style="flex:1"><div class="row wrap"><h2 style="margin:0">${esc(a.name)}</h2>${a.match_score >= 85 ? '<span class="pill">Top Match</span>' : ''}<span class="pill" style="background:var(--beige);color:#222">${esc(a.department || '')}</span>${a.university_name ? `<span class="pill st-applied">🎓 ${esc(a.university_name)}</span>` : ''}</div>
    <div style="margin:6px 0 12px">${esc(a.current_title || '')}${a.current_company ? ' at ' + esc(a.current_company) : ''} · applied for <b>${esc(a.job_title)}</b></div>
    <div class="row wrap">${[['Score', a.match_score + '%'], ['AI Match', ins ? ins.ai_fit : '…'], ['Experience', (a.experience_years ?? '?') + ' Yrs'], ['ATS', a.ats_score + '%']].map(([k, v]) => `<div class="card" style="padding:8px 14px"><div class="small mut">${k}</div><b>${esc(v)}</b></div>`).join('')}</div>
    <div class="row small" style="margin-top:10px">${a.linkedin_url ? `<a target="_blank" href="https://${esc(a.linkedin_url.replace(/^https?:\/\//, ''))}">LinkedIn</a>` : ''}${a.github_url ? `<a target="_blank" href="https://${esc(a.github_url.replace(/^https?:\/\//, ''))}">GitHub</a>` : ''}<a href="#" onclick="dlResume(${a.id});return false">⬇ Resume</a><span class="mut">${esc(a.email || '')}</span></div></div></div></div>
@@ -221,18 +262,18 @@ pages.candidate = async (id) => {
    <div class="card dark"><div class="row between"><b>✦ AI Resume Insights</b><button class="btn small" onclick="regen(${a.id},this)">↻ ${ins ? 'Regenerate' : 'Generate'}</button></div>
    ${a.ai_status === 'error' ? `<p class="small" style="background:#ffffff1a;padding:8px;border-radius:8px">AI unavailable: ${esc(a.ai_error)} — showing the Python matcher's summary.</p>` : ''}
    <div class="grid g3" style="margin-top:12px"><div><div style="font-size:44px;font-weight:800">${a.ats_score}%</div><div class="small">ATS Score</div><p class="small" style="opacity:.85">${esc(ins?.ats_comment || '')}</p></div>
-   <div><div class="k" style="color:#9fd3b4">Top strengths</div>${(ins?.strengths || []).map((s) => `<div style="margin:6px 0">✓ ${esc(s)}</div>`).join('')}</div>
-   <div><div class="k" style="color:#9fd3b4">Growth areas</div>${(ins?.growth_areas || []).map((s) => `<div style="margin:6px 0">ⓘ ${esc(s)}</div>`).join('')}</div></div>
+   <div><div class="k" style="color:#bdbdbd">Top strengths</div>${(ins?.strengths || []).map((s) => `<div style="margin:6px 0">✓ ${esc(s)}</div>`).join('')}</div>
+   <div><div class="k" style="color:#bdbdbd">Growth areas</div>${(ins?.growth_areas || []).map((s) => `<div style="margin:6px 0">ⓘ ${esc(s)}</div>`).join('')}</div></div>
    ${ins?.recommendation ? `<p style="border-top:1px solid #ffffff22;padding-top:10px">➜ ${esc(ins.recommendation)}</p>` : ''}<p class="small" style="opacity:.6">${ins ? (ins.source === 'ai' ? 'Generated by ' + esc(ins.model) : 'From the Python skill matcher') : ''} · Scores support the recruiter's decision, they do not replace it.</p></div>
    <div class="card"><div class="row between"><h3 style="margin:0">Interview kit — AI suggested questions</h3><button class="btn small" onclick="kit(${a.id},this)">✦ ${kit ? 'Regenerate' : 'Generate'}</button></div>
    ${kit ? `<div class="row wrap" style="margin:10px 0"><span class="pill">Readiness ${kit.readiness}% ${esc(kit.readiness_label)}</span><span class="pill">Predicted score ${kit.predicted_score}/10</span></div><p class="small mut">${esc(kit.basis)}</p>
-   ${(kit.questions || []).map((q) => `<div class="card" style="margin:8px 0;padding:12px;background:#faf8f3"><i>"${esc(q.question)}"</i><div class="small mut">Focus: ${esc(q.focus)} · ${q.relevance}% relevance</div></div>`).join('')}
+   ${(kit.questions || []).map((q) => `<div class="card" style="margin:8px 0;padding:12px;background:#f7f7f7"><i>"${esc(q.question)}"</i><div class="small mut">Focus: ${esc(q.focus)} · ${q.relevance}% relevance</div></div>`).join('')}
    ${kit.agenda ? `<b>Agenda</b><ul>${kit.agenda.map((x) => `<li>${esc(x.item)} (${x.minutes}m)</li>`).join('')}</ul>` : ''}` : '<p class="mut">Generate tailored questions from the job and this resume.</p>'}</div>
    <div class="card" id="msgs"><h3 style="margin-top:0">Messages</h3><div style="max-height:320px;overflow:auto">${a.messages.map((m) => `<div class="msg ${m.sender_type}">${m.sender_type !== 'system' ? `<div class="small mut">${m.sender_type === 'candidate' ? esc(a.name) : esc(m.sender_name || 'Recruiter')} · ${fmtDT(m.sent_at)}</div>` : ''}${esc(m.body)}</div>`).join('') || '<p class="mut">No messages yet.</p>'}</div>
    <textarea class="in" id="mb" rows="3" placeholder="Write to ${esc(a.name)}…"></textarea><div class="row" style="margin-top:8px"><button class="btn pri" onclick="sendMsg(${a.id},this)">Send</button><select class="in" id="intent" style="width:200px"><option>status update</option><option>interview invitation</option><option>request more information</option><option>offer</option><option>polite rejection</option></select><button class="btn tan" onclick="draft(${a.id},this)">✦ AI draft</button></div>
    <p class="small mut">The candidate reads and replies on their status page: <a target="_blank" href="/status/${a.status_token}">/status/${a.status_token}</a></p></div></div>
   <div class="grid" style="align-content:start"><div class="card"><div class="k">Candidate Health</div><div class="row between" style="margin-top:12px"><span>Overall Match</span><b style="font-size:22px">${a.match_score}%</b></div><div class="row between"><span>ATS Compatibility</span><b>${a.ats_score >= 80 ? 'High' : a.ats_score >= 60 ? 'Medium' : 'Low'}</b></div><div class="row between" style="margin-top:6px"><span>Current Stage</span>${pill(a.stage)}</div>
-   <div class="k" style="margin-top:16px">Next Action</div>${next ? `<div class="card" style="background:#f3f1ea;margin-top:8px"><b>📅 ${esc(next.type)}</b><div class="small">${fmtDT(next.scheduled_at)} · ${esc(next.platform)}</div>${next.meeting_link ? `<a class="small" target="_blank" href="${esc(next.meeting_link)}"><b>Join link</b></a>` : ''}</div>` : `<p class="small mut">${esc(ins?.recommendation || 'Review and move to the next stage.')}</p>`}</div>
+   <div class="k" style="margin-top:16px">Next Action</div>${next ? `<div class="card" style="background:#f2f2f2;margin-top:8px"><b>📅 ${esc(next.type)}</b><div class="small">${fmtDT(next.scheduled_at)} · ${esc(next.platform)}</div>${next.meeting_link ? `<a class="small" target="_blank" href="${esc(next.meeting_link)}"><b>Join link</b></a>` : ''}</div>` : `<p class="small mut">${esc(ins?.recommendation || 'Review and move to the next stage.')}</p>`}</div>
    <div class="card"><div class="k">Skill match (Python matcher)</div><div style="margin-top:8px">${(d.matched_skills || []).map((s) => `<span class="chip ok">✓ ${esc(s)}</span>`).join('')}${(d.missing_skills || []).map((s) => `<span class="chip no">✗ ${esc(s)}</span>`).join('')}</div>
    <div class="small mut" style="margin-top:8px">${Object.entries(d.breakdown || {}).slice(0, 4).map(([k, v]) => `${k} ${v}%`).join(' · ')}</div></div>
    <div class="card"><div class="k">Profile Details</div>${[['Availability', a.availability], ['Recruiter', a.recruiter_name], ['Source', a.source], ['Applied On', fmtDate(a.created_at)], ['Education', (d.education || []).join(', ')]].map(([k, v]) => `<div style="margin-top:10px"><div class="small mut">${k}</div><b>${esc(v || '—')}</b></div>`).join('')}</div>
@@ -314,7 +355,7 @@ pages['/company'] = async () => {
   const score = Math.round(items.filter((x) => x[1]).length / items.length * 100);
   setTimeout(() => { $('#cf').onsubmit = async (e) => { e.preventDefault(); const b = Object.fromEntries(new FormData(e.target)); b.company_values = b.company_values.split('\n').map((s) => s.trim()).filter(Boolean); try { await api('/company', { method: 'PUT', body: b }); toast('Saved'); render(); } catch (x) { toast(x.message, 1); } }; });
   return `<div class="row between wrap"><div><h1>Company Profile</h1><p class="sub">Manage your company's public identity, culture, and recruitment branding.</p></div><div class="row"><a class="btn" target="_blank" href="/careers/${c.slug}">👁 Preview</a><button class="btn" onclick="navigator.clipboard?.writeText(location.origin+'/careers/${c.slug}');toast('Careers link copied')">Share</button></div></div>
-  <div class="grid g21"><div class="grid"><div class="card" style="padding:0;overflow:hidden"><div style="height:110px;background:linear-gradient(120deg,#123d30,#4c8a70 60%,#e7e1d3)"></div><div class="row wrap" style="padding:16px;gap:24px"><div class="av" style="width:64px;height:64px;border-radius:14px;background:#123d30;font-size:26px">${esc(initials(c.name))}</div><div style="flex:1"><h2 style="margin:0">${esc(c.name)} ✅</h2><div class="small mut">${esc(c.location || '')} · ${esc(c.industry || '')}</div></div>
+  <div class="grid g21"><div class="grid"><div class="card" style="padding:0;overflow:hidden"><div style="height:110px;background:linear-gradient(120deg,#0a0a0a,#3a3a3a 60%,#e9e9e9)"></div><div class="row wrap" style="padding:16px;gap:24px"><div class="av" style="width:64px;height:64px;border-radius:14px;background:#0a0a0a;font-size:26px">${esc(initials(c.name))}</div><div style="flex:1"><h2 style="margin:0">${esc(c.name)} ✅</h2><div class="small mut">${esc(c.location || '')} · ${esc(c.industry || '')}</div></div>
    ${[['Active jobs', c.open_jobs], ['Recruiters', c.recruiters.length], ['Employees', c.employees || '—']].map(([k, v]) => `<div style="text-align:center"><div class="big" style="font-size:22px">${v}</div><div class="small mut">${k}</div></div>`).join('')}</div></div>
    <form id="cf" class="card"><div class="grid g2"><div><label>Name</label><input class="in" name="name" value="${esc(c.name)}"></div><div><label>Industry</label><input class="in" name="industry" value="${esc(c.industry || '')}"></div><div><label>Location</label><input class="in" name="location" value="${esc(c.location || '')}"></div><div><label>Website</label><input class="in" name="website" value="${esc(c.website || '')}"></div><div><label>Employees</label><input class="in" name="employees" value="${esc(c.employees || '')}"></div><div><label>Hiring goal (hires)</label><input class="in" name="hiring_goal" value="${esc(c.hiring_goal || '')}"></div></div>
    <label>About us</label><textarea class="in" rows="3" name="about">${esc(c.about || '')}</textarea><label>Mission</label><input class="in" name="mission" value="${esc(c.mission || '')}"><label>Values (one per line)</label><textarea class="in" rows="3" name="company_values">${esc(c.company_values.join('\n'))}</textarea><button class="btn pri" style="margin-top:12px">Save Changes</button></form></div>
@@ -325,7 +366,7 @@ pages['/company'] = async () => {
 pages['/recruiters'] = async () => {
   const c = await api('/company');
   return `<div class="row between"><div><h1>Recruiters</h1><p class="sub">Your hiring team.</p></div><button class="btn pri" onclick="invite()">＋ Invite recruiter</button></div><div class="card" style="padding:6px"><table><tr><th>Name</th><th>Email</th><th>Role</th><th>Title</th><th></th></tr>
-  ${c.recruiters.map((r) => `<tr><td><div class="row">${av(r.name, '#2f6b55', 28)}<b>${esc(r.name)}</b></div></td><td>${esc(r.email)}</td><td>${esc(r.role)}</td><td>${esc(r.title || '')}</td><td>${ME.user.role === 'admin' && r.id !== ME.user.id ? `<button class="btn small" onclick="resetPw(${r.id},this)">Reset password</button>` : ''}</td></tr>`).join('')}</table></div>`;
+  ${c.recruiters.map((r) => `<tr><td><div class="row">${av(r.name, '#404040', 28)}<b>${esc(r.name)}</b></div></td><td>${esc(r.email)}</td><td>${esc(r.role)}</td><td>${esc(r.title || '')}</td><td>${ME.user.role === 'admin' && r.id !== ME.user.id ? `<button class="btn small" onclick="resetPw(${r.id},this)">Reset password</button>` : ''}</td></tr>`).join('')}</table></div>`;
 };
 function invite() { modal(`<h2 style="margin-top:0">Invite recruiter</h2><form id="if"><label>Name</label><input class="in" name="name" required><label>Email</label><input class="in" name="email" type="email" required><label>Role</label><select class="in" name="role"><option value="recruiter">Recruiter</option><option value="hiring_manager">Hiring manager</option><option value="admin">Admin</option></select><label>Title</label><input class="in" name="title"><button class="btn pri" style="margin-top:12px">Create account</button></form>`, (m) => {
   $('#if', m).onsubmit = (e) => { e.preventDefault(); busy(e.submitter, async () => { const r = await api('/recruiters', { method: 'POST', body: Object.fromEntries(new FormData(e.target)) }); m.querySelector('.card').innerHTML = `<h2>Account created</h2><p>Share this temporary password: <b style="font-size:18px">${esc(r.temp_password)}</b></p><button class="btn" onclick="this.closest('.modal').remove();render()">Done</button>`; }); };
@@ -334,7 +375,7 @@ function invite() { modal(`<h2 style="margin-top:0">Invite recruiter</h2><form i
 pages['/notifications'] = async () => {
   const n = await api('/notifications');
   return `<div class="row between"><div><h1>Notifications</h1><p class="sub">New applications, replies and team activity.</p></div><button class="btn" onclick="api('/notifications/read-all',{method:'POST'}).then(render)">Mark all read</button></div>
-  <div class="card">${n.map((x) => `<a data-go href="${esc(x.link || '/')}" class="row" style="padding:10px;border-bottom:1px solid #f0ede6;${x.is_read ? '' : 'background:#f3f8f5'}"><span>${x.is_read ? '⚪' : '🟢'}</span><div><b>${esc(x.title)}</b><div class="small mut">${esc(x.body || '')} · ${fmtDT(x.created_at)}</div></div></a>`).join('') || '<p class="mut">You are all caught up.</p>'}</div>`;
+  <div class="card">${n.map((x) => `<a data-go href="${esc(x.link || '/')}" class="row" style="padding:10px;border-bottom:1px solid #ededed;${x.is_read ? '' : 'background:#f4f4f4'}"><span>${x.is_read ? '⚪' : '🟢'}</span><div><b>${esc(x.title)}</b><div class="small mut">${esc(x.body || '')} · ${fmtDT(x.created_at)}</div></div></a>`).join('') || '<p class="mut">You are all caught up.</p>'}</div>`;
 };
 
 pages['/settings'] = async () => {
@@ -364,7 +405,7 @@ function calendar(list) {
   return `<div class="card" style="margin-top:16px"><div class="row between"><button class="btn" onclick="window._calM=(window._calM||0)-1;render()">‹</button><b>${base.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}</b><button class="btn" onclick="window._calM=(window._calM||0)+1;render()">›</button></div>
   <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px">${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => `<div class="k" style="text-align:center">${d}</div>`).join('')}
   ${cells.map((d) => { const ev = list.filter((i) => new Date(i.scheduled_at).toDateString() === d.toDateString()); const today = d.toDateString() === new Date().toDateString();
-    return `<div style="min-height:86px;border:1px solid var(--line);border-radius:8px;padding:4px;background:${d.getMonth() === mo ? '#fff' : '#f3f1ea'};${today ? 'outline:2px solid var(--g9)' : ''}"><div class="small mut">${d.getDate()}</div>${ev.map((i) => `<a data-go href="/candidates/${i.app_id}" style="display:block;font-size:11px;background:${i.status === 'cancelled' ? '#f7e1df' : 'var(--g1)'};border-radius:4px;padding:2px 4px;margin-top:2px">${fmtTime(i.scheduled_at)} ${esc(i.name)}</a>`).join('')}</div>`; }).join('')}</div></div>`;
+    return `<div style="min-height:86px;border:1px solid var(--line);border-radius:8px;padding:4px;background:${d.getMonth() === mo ? '#fff' : '#f2f2f2'};${today ? 'outline:2px solid var(--g9)' : ''}"><div class="small mut">${d.getDate()}</div>${ev.map((i) => `<a data-go href="/candidates/${i.app_id}" style="display:block;font-size:11px;background:${i.status === 'cancelled' ? '#ececec' : 'var(--g1)'};border-radius:4px;padding:2px 4px;margin-top:2px">${fmtTime(i.scheduled_at)} ${esc(i.name)}</a>`).join('')}</div>`; }).join('')}</div></div>`;
 }
 function resetPw(id, b) { busy(b, async () => { const r = await api(`/recruiters/${id}/reset-password`, { method: 'POST' }); modal(`<h2 style="margin-top:0">Password reset</h2><p>New temporary password: <b style="font-size:18px">${esc(r.temp_password)}</b></p><p class="small mut">Share it with the recruiter; they can change it under My Profile.</p><button class="btn" onclick="this.closest('.modal').remove()">Done</button>`); }); }
 
@@ -376,10 +417,10 @@ pages.job = async (id) => {
   <a data-go class="btn" href="/jobs/${j.id}/edit">Edit</a><button class="btn" onclick="copyLink(${j.id})">🔗 Apply link</button><button class="btn tan" onclick="jobInsights(${j.id},this)">✦ AI insights</button></div></div>
   <div class="grid g4">${[['Applicants', j.applications.length], ['Avg AI match', j.applications.length ? Math.round(j.applications.reduce((a, x) => a + x.match_score, 0) / j.applications.length) + '%' : '—'], ['Salary range', money(j.salary_min) + ' – ' + money(j.salary_max)], ['Experience', `${j.experience_min ?? 0}–${j.experience_max ?? '?'} yrs`]].map(([k, v]) => `<div class="card"><div class="k">${k}</div><div class="big" style="font-size:22px">${v}</div></div>`).join('')}</div>
   <h3>Pipeline — drag a card to another column to move its stage</h3><div style="display:grid;grid-template-columns:repeat(7,minmax(150px,1fr));gap:10px;overflow-x:auto">
-  ${cols.map((c) => { const items = j.applications.filter((a) => a.stage === c); return `<div class="card" style="padding:10px;background:#f3f1ea;min-height:160px" ondragover="event.preventDefault()" ondrop="dropStage(event,'${c}')"><div class="row between">${pill(c)}<b class="small">${items.length}</b></div>
+  ${cols.map((c) => { const items = j.applications.filter((a) => a.stage === c); return `<div class="card" style="padding:10px;background:#f2f2f2;min-height:160px" ondragover="event.preventDefault()" ondrop="dropStage(event,'${c}')"><div class="row between">${pill(c)}<b class="small">${items.length}</b></div>
     ${items.map((a) => `<div draggable="true" ondragstart="event.dataTransfer.setData('id','${a.id}')" class="card" style="padding:10px;margin-top:8px;cursor:grab" onclick="go('/candidates/${a.id}')"><div class="row">${av(a.name, a.avatar_color, 26)}<b class="small">${esc(a.name)}</b></div><div class="small mut" style="margin-top:4px">Match ${a.match_score}% · ATS ${a.ats_score}%</div></div>`).join('')}</div>`; }).join('')}</div>
   <div class="grid g2" style="margin-top:16px"><div class="card"><h3 style="margin-top:0">Description</h3><p style="white-space:pre-wrap">${esc(j.description || '')}</p><h3>Requirements</h3><p style="white-space:pre-wrap">${esc(j.requirements || '')}</p><div>${j.skills.map((s) => `<span class="chip">${esc(s)}</span>`).join('')}</div></div>
-  <div class="card dark"><b>✦ AI Recruitment Insights</b>${ins ? `<div class="k" style="color:#9fd3b4;margin-top:12px">Suggested salary range</div><div class="big" style="font-size:22px">${esc(ins.currency || '')} ${Number(ins.salary_min).toLocaleString()} – ${Number(ins.salary_max).toLocaleString()}</div><p class="small">${esc(ins.salary_note)}</p><div class="k" style="color:#9fd3b4">Market competition</div><p>${esc(ins.competition)} — ${esc(ins.competition_note)}</p><ul>${(ins.posting_tips || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '<p class="small">Click “AI insights” to get a salary estimate, competition level and posting tips.</p>'}</div></div>`;
+  <div class="card dark"><b>✦ AI Recruitment Insights</b>${ins ? `<div class="k" style="color:#bdbdbd;margin-top:12px">Suggested salary range</div><div class="big" style="font-size:22px">${esc(ins.currency || '')} ${Number(ins.salary_min).toLocaleString()} – ${Number(ins.salary_max).toLocaleString()}</div><p class="small">${esc(ins.salary_note)}</p><div class="k" style="color:#bdbdbd">Market competition</div><p>${esc(ins.competition)} — ${esc(ins.competition_note)}</p><ul>${(ins.posting_tips || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '<p class="small">Click “AI insights” to get a salary estimate, competition level and posting tips.</p>'}</div></div>`;
 };
 async function dropStage(e, stage) { e.preventDefault(); const id = e.dataTransfer.getData('id'); if (!id) return; try { await api(`/applications/${id}/stage`, { method: 'PATCH', body: { stage } }); toast('Moved to ' + stage + ' — candidate informed'); render(); } catch (x) { toast(x.message, 1); } }
 
@@ -389,7 +430,7 @@ pages['/profile'] = async () => {
     $('#pw').onsubmit = (e) => { e.preventDefault(); const b = Object.fromEntries(new FormData(e.target)); if (b.next !== b.confirm) return toast('New passwords do not match', 1); busy(e.submitter, async () => { await api('/me/password', { method: 'POST', body: b }); e.target.reset(); toast('Password changed'); }); };
   });
   const u = ME.user;
-  return `<h1>My Profile</h1><p class="sub">Your account details and password.</p><div class="grid g2"><form id="pf" class="card"><div class="row" style="margin-bottom:8px">${av(u.name, '#123d30', 56)}<div><b>${esc(u.name)}</b><div class="small mut">${esc(u.email)} · ${esc(u.role)}</div></div></div>
+  return `<h1>My Profile</h1><p class="sub">Your account details and password.</p><div class="grid g2"><form id="pf" class="card"><div class="row" style="margin-bottom:8px">${av(u.name, '#0a0a0a', 56)}<div><b>${esc(u.name)}</b><div class="small mut">${esc(u.email)} · ${esc(u.role)}</div></div></div>
   <label>Full name</label><input class="in" name="name" value="${esc(u.name)}" required><label>Job title</label><input class="in" name="title" value="${esc(u.title || '')}"><label>Phone</label><input class="in" name="phone"><button class="btn pri" style="margin-top:12px">Save profile</button></form>
   <form id="pw" class="card"><h3 style="margin-top:0">Change password</h3><label>Current password</label><input class="in" type="password" name="current" required><label>New password</label><input class="in" type="password" name="next" minlength="6" required><label>Confirm new password</label><input class="in" type="password" name="confirm" minlength="6" required><button class="btn pri" style="margin-top:12px">Change password</button>
   <p class="small mut">Forgot your password? Ask your organisation admin to reset it from the Recruiters page.</p></form></div>`;
@@ -420,6 +461,67 @@ async function status(token) {
 }
 
 // ---------------------------------------------------------------- router
+
+// ---------- icons (monochrome line icons) ----------
+const PATHS = {
+  dash: '<rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/>',
+  jobs: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2M2 13h20"/>',
+  cand: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+  int: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  msg: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  ana: '<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 6-6"/>',
+  rep: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/>',
+  co: '<path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1M14 9h1M9 13h1M14 13h1M9 17h1M14 17h1"/>',
+  rec: '<circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2M19 8v6M22 11h-6"/>',
+  bell: '<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',
+  set: '<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>',
+  help: '<circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3M12 17h.01"/>',
+  out: '<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>',
+  home: '<path d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/>',
+  mic: '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/>',
+  user: '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>',
+  list: '<path d="M9 6h12M9 12h12M9 18h12M4 6h.01M4 12h.01M4 18h.01"/>',
+  cap: '<path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/>',
+  more: '<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>',
+  logo: '<path d="M3 17c3-7 15-7 18 0"/><path d="M3 17v3M21 17v3M8 13.5V20M12 12.5V20M16 13.5V20"/>',
+};
+const I = (n, extra = '') => `<svg class="ic" ${extra} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">${PATHS[n] || ''}</svg>`;
+Object.keys(ico).forEach((k) => { ico[k] = I(k); });
+
+// ---------- bottom tab bar (phones) ----------
+function bnav(items, active) { return `<nav class="bnav">${items.map(([h, i, l]) => `<a data-go href="${h}" class="${active === h ? 'on' : ''}">${I(i)}<span>${l}</span></a>`).join('')}</nav>`; }
+
+// ---------- splash + onboarding ----------
+const LOGO = `<svg viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${PATHS.logo}</svg>`;
+function showSplash() {
+  const el = document.createElement('div'); el.id = 'splash';
+  el.innerHTML = `<div class="logo">${LOGO}</div><h1>CareerBridge</h1><p>Hire on skills. Get hired on skills.</p><div class="dots"><i></i><i></i><i></i></div>`;
+  document.body.appendChild(el);
+  return () => { el.classList.add('hide'); setTimeout(() => el.remove(), 500); };
+}
+function showOnboarding() {
+  const slides = [
+    ['cap', 'Your career, bridged', 'One app for students, universities and employers — jobs, applications and interviews in one place.'],
+    ['ana', 'AI that ranks on skills', 'Upload a resume once. Our AI matcher shows your fit for every job and how to improve it.'],
+    ['mic', 'Practise with an AI interviewer', 'Answer by voice or text and get scored feedback on every answer before the real thing.'],
+  ];
+  const el = document.createElement('div'); el.id = 'onb';
+  el.innerHTML = `<div class="row between" style="padding:max(18px,env(safe-area-inset-top)) 22px 0"><b style="display:flex;align-items:center;gap:8px">${I('logo')}CareerBridge</b><a class="mut" style="cursor:pointer" id="skip">Skip</a></div>
+  <div class="track">${slides.map(([ic, h, t]) => `<div class="sl"><div class="art">${I(ic, 'style="width:90px;height:90px"')}</div><h2>${h}</h2><p>${t}</p></div>`).join('')}
+  <div class="sl"><h2>Who are you?</h2><p>Choose how you'll use CareerBridge.</p><div class="roles">
+   ${[['/student/login', 'cap', "I'm a student", 'Find jobs, apply, practise interviews'], ['/login', 'jobs', "I'm hiring", 'Post jobs, rank candidates, schedule interviews'], ['/university/login', 'co', "I'm a placement officer", "Track your students' placements"]].map(([h, i, b, t]) => `<button class="role" data-to="${h}"><span class="ri">${I(i, 'style="stroke:#fff"')}</span><span><b>${b}</b><span>${t}</span></span></button>`).join('')}</div></div></div>
+  <div class="foot"><div class="pg">${[0, 1, 2, 3].map((i) => `<i class="${i ? '' : 'on'}"></i>`).join('')}</div><button class="big-btn" id="nx">Next</button></div>`;
+  document.body.appendChild(el);
+  const tr = el.querySelector('.track'), dots = el.querySelectorAll('.pg i'), nx = el.querySelector('#nx');
+  const idx = () => Math.round(tr.scrollLeft / tr.clientWidth);
+  tr.addEventListener('scroll', () => { const i = idx(); dots.forEach((d, k) => d.classList.toggle('on', k === i)); nx.style.visibility = i === 3 ? 'hidden' : 'visible'; });
+  nx.onclick = () => tr.scrollTo({ left: (idx() + 1) * tr.clientWidth, behavior: 'smooth' });
+  const finish = (to) => { localStorage.setItem('cb_onboarded', '1'); el.style.transition = 'opacity .3s'; el.style.opacity = 0; setTimeout(() => el.remove(), 300); if (to) go(to); };
+  el.querySelector('#skip').onclick = () => tr.scrollTo({ left: 3 * tr.clientWidth, behavior: 'smooth' });
+  el.querySelectorAll('.role').forEach((b) => (b.onclick = () => finish(b.dataset.to)));
+}
+const isApp = matchMedia('(display-mode: standalone)').matches || document.referrer.startsWith('android-app://') || innerWidth < 900;
+
 const root = $('#root');
 function toggleMenu(force) { const o = force ?? !$('.side')?.classList.contains('open'); $('.side')?.classList.toggle('open', o); $('.shade')?.classList.toggle('open', o); }
 let deferredInstall = null;
@@ -428,6 +530,8 @@ async function installApp() { if (!deferredInstall) return toast('On iPhone: Sha
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
 async function render() {
   const p = location.pathname; let m;
+  const tb = $('#topbar'); tb.className = ''; void tb.offsetWidth; tb.className = 'go';
+  if (!root.innerHTML) root.innerHTML = '<div class="skel"><div style="height:34px;width:50%"></div><div style="height:90px"></div><div style="height:90px"></div><div style="height:220px"></div></div>';
   try {
     if ((m = p.match(/^\/careers\/([^/]+)(?:\/(\d+))?/))) return careers(m[1], m[2]);
     if ((m = p.match(/^\/status\/([^/]+)/))) return status(m[1]);
@@ -444,9 +548,20 @@ async function render() {
     root.innerHTML = shell(active, body); bindSearch(); if (deferredInstall) $('#installBtn').style.display = 'inline-flex';
     if (location.hash) setTimeout(() => document.getElementById(location.hash.slice(1))?.scrollIntoView(), 50);
   } catch (e) { toast(e.message, 1); if (!TOKEN) pages.login(); }
+  finally { tb.className = 'done'; window.scrollTo(0, 0); if (window.matchMedia('(max-width:900px)').matches) toggleMenu(false); }
 }
 </script>
 <script src="/portals.js"></script>
-<script>render();</script>
+<script>
+(async () => {
+  const hide = isApp && !sessionStorage.getItem('cb_splash') ? showSplash() : null;
+  sessionStorage.setItem('cb_splash', '1');
+  const started = Date.now();
+  await render();
+  if (hide) setTimeout(hide, Math.max(0, 1500 - (Date.now() - started)));
+  const pub = /^\/(careers|status)\//.test(location.pathname);
+  if (isApp && !pub && !localStorage.getItem('cb_onboarded') && !localStorage.getItem('cb_token') && !localStorage.getItem('cb_stoken') && !localStorage.getItem('cb_utoken')) setTimeout(showOnboarding, hide ? 1300 : 0);
+})();
+</script>
 </body>
 </html>

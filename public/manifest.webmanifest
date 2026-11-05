@@ -1,5 +1,5 @@
 {
-  "name": "CareerBridge – Recruitment Portal",
+  "name": "CareerBridge \u2013 Recruitment Portal",
   "short_name": "CareerBridge",
   "description": "Post jobs, rank candidates with AI resume matching, schedule interviews and keep applicants informed.",
   "id": "/",
@@ -7,11 +7,26 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f6f4ef",
-  "theme_color": "#123d30",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }

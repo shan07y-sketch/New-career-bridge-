@@ -507,6 +507,15 @@ app.post('/api/status/:token/messages', async (req, res) => {
 
 require('./portals')(app, { db, sec, ai, matcher, U, HttpError, readMultipart, intake, notifyCompany, SYSTEM, UPLOADS });
 
+// Android app link: lets the installed APK open full-screen with no browser bar
+app.get('/.well-known/assetlinks.json', async (req, res) => {
+  const file = path.join(__dirname, '..', 'public', '.well-known', 'assetlinks.json');
+  if (process.env.ANDROID_ASSETLINKS) return res.send(process.env.ANDROID_ASSETLINKS, 'application/json');
+  if (fs.existsSync(file)) return res.send(fs.readFileSync(file), 'application/json');
+  const pkg = process.env.ANDROID_PACKAGE, sha = process.env.ANDROID_SHA256;
+  res.json(pkg && sha ? [{ relation: ['delegate_permission/common.handle_all_urls'], target: { namespace: 'android_app', package_name: pkg, sha256_cert_fingerprints: sha.split(',').map((x) => x.trim()) } }] : []);
+});
+
 app.get('/api/health', async (req, res) => res.json({ ok: true, database: db.describe, matcher: matcher.getHealth(), ai: !!ai.envConfig() }));
 app.use('/api', () => { throw new HttpError(404, 'API route not found'); });
 app.use(serveStatic(path.join(__dirname, '..', 'public'), { spa: true }));
