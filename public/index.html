@@ -3,6 +3,9 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CareerBridge – Recruitment Management Portal</title>
+<link rel="manifest" href="/manifest.webmanifest"><meta name="theme-color" content="#123d30">
+<link rel="icon" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="CareerBridge"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--g9:#123d30;--g8:#1a4d3d;--g6:#2f6b55;--g1:#e3efe8;--mint:#c9ecd9;--bg:#f6f4ef;--side:#efece5;--beige:#e7e1d3;--card:#fff;--ink:#1d2622;--mut:#6b736e;--line:#e6e2d8;--red:#c0392b;--amber:#b7791f}
@@ -37,7 +40,10 @@ input.in,select.in,textarea.in{width:100%;padding:9px 11px;border:1px solid var(
 .login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}.login .l{background:var(--g9);color:#e5f3eb;padding:60px;display:flex;flex-direction:column;justify-content:center}.login .r{display:flex;align-items:center;justify-content:center;padding:30px}
 .spark{display:flex;align-items:flex-end;gap:4px;height:46px}.spark i{flex:1;background:#d7e6dd;border-radius:3px}.spark i:last-child{background:var(--g9)}
 .md h3{margin:12px 0 6px}.md ul{padding-left:18px}
-@media(max-width:900px){.side{display:none}.main{margin-left:0}.g4,.g3,.g2,.g21,.login{grid-template-columns:1fr}.login .l{display:none}.page{padding:18px 16px}}
+#menuBtn,#installBtn{display:none}.shade{display:none}
+@media(max-width:900px){.side{display:flex;transform:translateX(-100%);transition:transform .2s;z-index:40;width:260px;box-shadow:0 0 30px #0003}.side.open{transform:none}.shade.open{display:block;position:fixed;inset:0;background:#0005;z-index:30}
+#menuBtn{display:inline-flex;font-size:22px;background:none;border:none;padding:4px 8px;cursor:pointer}.top{padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top))}.top .small,.top a.row>div{display:none}.search{max-width:none;flex:1}.top>div[style*='flex:1']{display:none}.page{overflow-x:hidden}.card{overflow-wrap:anywhere}
+h1{font-size:23px}.big{font-size:24px}table{display:block;overflow-x:auto;white-space:nowrap}.modal .card{max-height:85vh}.row.wrap>.in{width:100%!important}.main{margin-left:0}.g4,.g3,.g2,.g21,.login{grid-template-columns:1fr}.login .l{display:none}.page{padding:18px 16px}}
 </style>
 </head>
 <body>
@@ -81,8 +87,8 @@ function shell(active, body) {
   ${NAV.map((n) => n ? `<a data-go href="${n[0]}" class="nav ${active === n[0] ? 'on' : ''}"><span>${ico[n[1]]}</span>${n[2]}</a>` : '<div class="sec">ORGANIZATION</div>').join('')}
   <div style="height:12px"></div><a data-go href="/help" class="nav ${active === '/help' ? 'on' : ''}">${ico.help} Help Center</a><a class="nav" style="color:var(--red)" onclick="logout()">↪ Log Out</a>
   <a data-go href="/jobs/new" class="btn pri post">＋ Post a New Job</a></aside>
-  <div class="main"><div class="top"><div class="search"><input id="gs" placeholder="Search candidates, jobs…" autocomplete="off"><div class="drop" id="gsd"></div></div><div style="flex:1"></div>
-  <a data-go href="/notifications" title="Notifications" style="font-size:18px">🔔</a><a data-go href="/profile" class="row"><div style="text-align:right"><b>${esc(ME.user.name)}</b><div class="small mut">${esc(ME.user.title || '')} · ${esc(ME.company.name)}</div></div>${av(ME.user.name, '#123d30', 36)}</a></div>
+  <div class="shade" onclick="toggleMenu(false)"></div><div class="main"><div class="top"><button id="menuBtn" onclick="toggleMenu()" aria-label="Menu">☰</button><div class="search"><input id="gs" placeholder="Search candidates, jobs…" autocomplete="off"><div class="drop" id="gsd"></div></div><div style="flex:1"></div>
+  <button id="installBtn" class="btn pri small" onclick="installApp()">⬇ Install app</button><a data-go href="/notifications" title="Notifications" style="font-size:18px">🔔</a><a data-go href="/profile" class="row"><div style="text-align:right"><b>${esc(ME.user.name)}</b><div class="small mut">${esc(ME.user.title || '')} · ${esc(ME.company.name)}</div></div>${av(ME.user.name, '#123d30', 36)}</a></div>
   <div class="page" id="page">${body}</div></div></div>`;
 }
 function bindSearch() {
@@ -415,6 +421,11 @@ async function status(token) {
 
 // ---------------------------------------------------------------- router
 const root = $('#root');
+function toggleMenu(force) { const o = force ?? !$('.side')?.classList.contains('open'); $('.side')?.classList.toggle('open', o); $('.shade')?.classList.toggle('open', o); }
+let deferredInstall = null;
+window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredInstall = e; const b = $('#installBtn'); if (b) b.style.display = 'inline-flex'; });
+async function installApp() { if (!deferredInstall) return toast('On iPhone: Share → Add to Home Screen. On Android: Chrome ⋮ → Install app.'); deferredInstall.prompt(); await deferredInstall.userChoice; deferredInstall = null; $('#installBtn').style.display = 'none'; }
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js').catch(() => {}));
 async function render() {
   const p = location.pathname; let m;
   try {
@@ -428,7 +439,7 @@ async function render() {
     else if ((m = p.match(/^\/jobs\/(\d+)\/edit/))) { body = await pages.jobForm(m[1]); active = '/jobs'; }
     else if ((m = p.match(/^\/jobs\/(\d+)$/))) { body = await pages.job(m[1]); active = '/jobs'; }
     else body = await (pages[p] || pages.notFound)();
-    root.innerHTML = shell(active, body); bindSearch();
+    root.innerHTML = shell(active, body); bindSearch(); if (deferredInstall) $('#installBtn').style.display = 'inline-flex';
     if (location.hash) setTimeout(() => document.getElementById(location.hash.slice(1))?.scrollIntoView(), 50);
   } catch (e) { toast(e.message, 1); if (!TOKEN) pages.login(); }
 }

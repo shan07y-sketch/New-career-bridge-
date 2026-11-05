@@ -233,7 +233,7 @@ const MIME = {
   '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
   '.webp': 'image/webp', '.ico': 'image/x-icon', '.woff2': 'font/woff2', '.txt': 'text/plain; charset=utf-8',
   '.pdf': 'application/pdf', '.docx': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-  '.map': 'application/json',
+  '.map': 'application/json', '.webmanifest': 'application/manifest+json',
 };
 
 /** Static file middleware with in-memory gzip cache and optional SPA fallback. */
@@ -246,7 +246,7 @@ function serveStatic(root, { spa = false, maxAge = 0 } = {}) {
     if (hit && hit.mtime === stat.mtimeMs) return hit;
     const raw = fs.readFileSync(file);
     const ext = path.extname(file).toLowerCase();
-    const compressible = /\.(html|js|css|json|svg|txt|map)$/.test(ext);
+    const compressible = /\.(html|js|css|json|svg|txt|map|webmanifest)$/.test(ext);
     const entry = { mtime: stat.mtimeMs, raw, gz: compressible && raw.length > 1024 ? zlib.gzipSync(raw, { level: 9 }) : null, type: MIME[ext] || 'application/octet-stream' };
     cache.set(file, entry);
     return entry;
