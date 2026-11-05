@@ -7,6 +7,29 @@
  */
 const TABLES = [
   {
+    name: 'universities',
+    columns: [
+      ['id', 'pk'], ['name', 'str!'], ['code', 'str!', { unique: true }], ['location', 'str'], ['officer_name', 'str'],
+      ['officer_email', 'str', { unique: true }], ['password_hash', 'str'], ['created_at', 'date!'],
+    ],
+  },
+  {
+    name: 'students',
+    columns: [
+      ['id', 'pk'], ['university_id', 'fk:universities', { onDelete: 'SET NULL' }], ['name', 'str!'], ['email', 'str!', { unique: true }],
+      ['password_hash', 'str!'], ['phone', 'str'], ['degree', 'str'], ['grad_year', 'int'], ['location', 'str'], ['linkedin_url', 'str'],
+      ['resume_text', 'longtext'], ['resume_file', 'str'], ['resume_name', 'str'], ['skills', 'text'], ['resume_feedback', 'text'],
+      ['avatar_color', 'str'], ['created_at', 'date!'],
+    ],
+  },
+  {
+    name: 'mock_interviews',
+    columns: [
+      ['id', 'pk'], ['student_id', 'fk:students!', { onDelete: 'CASCADE' }], ['role', 'str!'], ['questions', 'text'], ['answers', 'text'],
+      ['score', 'int'], ['feedback', 'text'], ['status', 'str'], ['created_at', 'date!'],
+    ],
+  },
+  {
     name: 'companies',
     columns: [
       ['id', 'pk'], ['name', 'str!'], ['slug', 'str!', { unique: true }], ['industry', 'str'], ['location', 'str'],
@@ -59,7 +82,7 @@ const TABLES = [
       ['match_score', 'int'], ['ats_score', 'int'], ['match_level', 'str'], ['match_details', 'text'], ['matched_at', 'date'],
       ['ai_insights', 'text'], ['ai_status', 'str'], ['ai_error', 'text'], ['ai_generated_at', 'date'], ['ai_interview', 'text'],
       ['status_token', 'str', { unique: true }], ['rating', 'int'], ['rejected_reason', 'str'], ['last_viewed_at', 'date'],
-      ['stage_changed_at', 'date'], ['created_at', 'date!'], ['updated_at', 'date'],
+      ['stage_changed_at', 'date'], ['created_at', 'date!'], ['updated_at', 'date'], ['student_id', 'int'],
     ],
     indexes: [['company_id', 'stage'], ['job_id'], ['candidate_id']],
   },

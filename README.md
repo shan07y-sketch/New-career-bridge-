@@ -6,7 +6,10 @@ Employer portal for fair, skill-based hiring (Leo Club of Hopeville · Community
 
 **Stack:** Node.js REST API (Express-style router, no npm installs needed) · SQLite built in, or MySQL via `DATABASE_URL` · Python resume matcher (`matcher/`) · LLM via a free Gemini or Groq key.
 
-Demo login: `sarah.jenkins@example.com` / `demo1234`
+Three connected portals (login page has Employer / Student / University tabs):
+- **Employer:** `sarah.jenkins@example.com` / `demo1234`
+- **Student:** `student@example.com` / `demo1234` — find jobs with AI match %, one-click apply, AI resume feedback, AI mock interview (voice or text), application tracker
+- **University placement cell:** `placement@srm.example.com` / `demo1234` — student code `SRMRMP`, placement funnel, students' applications and mock scores, AI placement summary
 
 ## Run on your laptop
 Needs Node.js 22.13+ and Python 3.

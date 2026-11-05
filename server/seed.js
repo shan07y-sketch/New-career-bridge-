@@ -111,6 +111,21 @@ async function seed() {
       await db.insert('messages', { application_id: aid, company_id: cid, sender_type: 'candidate', body: 'Thank you! I have confirmed the slot and look forward to it.', channel: 'portal', sent_at: iso(-2.5) });
     }
   }
+  // ---- University placement cell + students (connected to the applications above) ----
+  const uni = await db.insert('universities', { name: 'SRM Institute of Science and Technology, Ramapuram', code: 'SRMRMP', location: 'Chennai',
+    officer_name: 'Placement Officer', officer_email: 'placement@srm.example.com', password_hash: pw, created_at: iso(-90) });
+  const people = PEOPLE.filter((p) => /SRM|Anna University/.test(p[6]));
+  for (const [k, p] of people.entries()) {
+    const email = p[0].toLowerCase().replace(/[^a-z]+/g, '') + '@example.com';
+    const stId = await db.insert('students', { university_id: uni, name: p[0], email: k === 0 ? 'student@example.com' : email, password_hash: pw, degree: 'B.Tech Information Technology',
+      grad_year: 2027, location: 'Chennai', resume_text: resume(p), skills: p[5].split(', '), avatar_color: U.colorFor(p[0]), created_at: iso(-50) });
+    await db.run('UPDATE applications SET student_id = ?, source = ? WHERE candidate_id IN (SELECT id FROM candidates WHERE name = ? AND company_id = ?)', [stId, 'Student Portal · SRM Ramapuram', p[0], cid]);
+    if (k < 2) await db.insert('mock_interviews', { student_id: stId, role: JOBS[p[1]][0], questions: [], answers: [], score: 62 + k * 9, feedback: { verdict: 'Good fundamentals; add more examples with numbers.' }, status: 'completed', created_at: iso(-5) });
+  }
+  for (const [n, d] of [['Harini Prakash', 'B.Tech Computer Science'], ['Sanjay Kumar', 'B.Tech Electronics'], ['Meera Nair', 'BCA']]) {
+    await db.insert('students', { university_id: uni, name: n, email: n.toLowerCase().replace(/[^a-z]+/g, '') + '@example.com', password_hash: pw, degree: d, grad_year: 2027, avatar_color: U.colorFor(n), created_at: iso(-20) });
+  }
+  console.log('Student demo: student@example.com / demo1234 · University demo: placement@srm.example.com / demo1234');
   await db.insert('notifications', { company_id: cid, recruiter_id: sarah, type: 'system', title: 'Welcome to CareerBridge', body: 'Add a free AI key in Settings to enable AI insights.', link: '/settings', is_read: 0, created_at: iso(0) });
   console.log('Demo login: sarah.jenkins@example.com / demo1234');
 }

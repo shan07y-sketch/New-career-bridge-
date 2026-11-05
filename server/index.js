@@ -32,7 +32,7 @@ async function aiCfg(companyId) {
 async function auth(req) {
   const t = String(req.get('authorization') || '').replace(/^Bearer\s+/i, '');
   const p = sec.verifyToken(t);
-  if (!p) throw new HttpError(401, 'Please sign in');
+  if (!p || p.kind) throw new HttpError(401, 'Please sign in');
   const u = await db.get('SELECT id, company_id, name, email, role, title FROM recruiters WHERE id = ?', [p.uid]);
   if (!u) throw new HttpError(401, 'Please sign in');
   req.user = u;
@@ -44,7 +44,8 @@ async function loadApp(id, companyId) {
   const a = await db.get(`SELECT a.*, c.name, c.email, c.phone, c.location, c.current_title, c.current_company, c.experience_years,
     c.linkedin_url, c.github_url, c.portfolio_url, c.skills AS cand_skills, c.resume_text, c.resume_file, c.resume_name, c.avatar_color,
     c.expected_salary, c.availability, c.education, j.title AS job_title, j.department, j.location AS job_location, j.skills AS job_skills,
-    j.description AS job_description, j.requirements AS job_requirements, j.experience_min, j.experience_max, r.name AS recruiter_name
+    j.description AS job_description, j.requirements AS job_requirements, j.experience_min, j.experience_max, r.name AS recruiter_name,
+    (SELECT u.name FROM students st JOIN universities u ON u.id = st.university_id WHERE st.id = a.student_id) AS university_name
     FROM applications a JOIN candidates c ON c.id = a.candidate_id JOIN jobs j ON j.id = a.job_id LEFT JOIN recruiters r ON r.id = a.recruiter_id
     WHERE a.id = ? AND a.company_id = ?`, [id, companyId]);
   if (!a) throw new HttpError(404, 'Application not found');
@@ -296,7 +297,7 @@ app.get('/api/applications/:id/resume', A(async (req, res) => {
 }));
 
 // shared intake: create candidate + application from upload
-async function intake(companyId, job, fields, file, source, recruiterId) {
+async function intake(companyId, job, fields, file, source, recruiterId, extra = {}) {
   U.requireFields(fields, ['name', 'email']);
   if (!U.isEmail(fields.email)) throw new HttpError(400, 'Please enter a valid email');
   let resumePath = null, resumeFile = null, resumeName = null;
@@ -326,7 +327,7 @@ async function intake(companyId, job, fields, file, source, recruiterId) {
   const aid = await db.insert('applications', {
     job_id: job.id, candidate_id: cid, company_id: companyId, recruiter_id: recruiterId || job.recruiter_id, stage: 'applied', furthest_stage: 0,
     source, cover_letter: fields.cover_letter || null, match_score: m.match_score, ats_score: m.ats_score, match_level: m.level, match_details: m,
-    matched_at: now, ai_status: 'pending', status_token: token, stage_changed_at: now, created_at: now, updated_at: now,
+    matched_at: now, ai_status: 'pending', status_token: token, stage_changed_at: now, created_at: now, updated_at: now, ...extra,
   });
   await db.insert('stage_history', { application_id: aid, from_stage: null, to_stage: 'applied', changed_at: now });
   await notifyCompany(companyId, { type: 'application', title: `New application: ${fields.name}`, body: `${job.title} · ${m.match_score}% match`, link: `/candidates/${aid}` });
@@ -503,6 +504,8 @@ app.post('/api/status/:token/messages', async (req, res) => {
   await notifyCompany(a.company_id, { type: 'message', title: 'New candidate reply', link: `/candidates/${a.id}` });
   res.json({ ok: true });
 });
+
+require('./portals')(app, { db, sec, ai, matcher, U, HttpError, readMultipart, intake, notifyCompany, SYSTEM, UPLOADS });
 
 app.get('/api/health', async (req, res) => res.json({ ok: true, database: db.describe, matcher: matcher.getHealth(), ai: !!ai.envConfig() }));
 app.use('/api', () => { throw new HttpError(404, 'API route not found'); });

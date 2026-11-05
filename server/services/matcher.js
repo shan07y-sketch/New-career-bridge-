@@ -69,4 +69,6 @@ async function matchOne({ resumeText, resumePath, job }) {
   return r;
 }
 
-module.exports = { detect, matchMany, matchOne, getHealth: () => health };
+async function extract(filePath) { return (await call({ mode: 'extract', path: filePath }, 60000)).text || ''; }
+
+module.exports = { detect, extract, matchMany, matchOne, getHealth: () => health };
