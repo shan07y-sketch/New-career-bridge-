@@ -1,0 +1,10 @@
+{
+  "name": "careerbridge",
+  "version": "1.0.0",
+  "description": "CareerBridge – Recruitment Management Portal (Node.js API, SQLite/MySQL, Python resume matcher, AI insights)",
+  "main": "server/index.js",
+  "scripts": { "start": "node server/index.js" },
+  "engines": { "node": ">=22.13" },
+  "optionalDependencies": { "mysql2": "^3.11.0" },
+  "license": "MIT"
+}

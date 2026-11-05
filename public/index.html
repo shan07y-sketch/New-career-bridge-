@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CareerBridge – Recruitment Management Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--g9:#123d30;--g8:#1a4d3d;--g6:#2f6b55;--g1:#e3efe8;--mint:#c9ecd9;--bg:#f6f4ef;--side:#efece5;--beige:#e7e1d3;--card:#fff;--ink:#1d2622;--mut:#6b736e;--line:#e6e2d8;--red:#c0392b;--amber:#b7791f}
+*{box-sizing:border-box}body{margin:0;font-family:Manrope,system-ui,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}
+.app{display:flex;min-height:100vh}.side{width:232px;background:var(--side);border-right:1px solid var(--line);padding:22px 14px;position:fixed;inset:0 auto 0 0;display:flex;flex-direction:column;gap:2px;overflow:auto}
+.brand{font-weight:800;font-size:20px;color:var(--g9);padding:0 10px}.brand small{display:block;font-weight:500;font-size:12px;color:var(--mut)}
+.nav{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;color:#3c4741;cursor:pointer;font-weight:500}.nav:hover{background:#e8e4da}.nav.on{background:var(--beige);color:var(--g9);font-weight:700;box-shadow:inset -3px 0 0 var(--g9)}
+.sec{font-size:10px;letter-spacing:.12em;color:var(--mut);margin:14px 12px 4px;font-weight:700}
+.main{margin-left:232px;flex:1;min-width:0}.top{display:flex;align-items:center;gap:14px;padding:12px 28px;border-bottom:1px solid var(--line);background:var(--bg);position:sticky;top:0;z-index:5}
+.search{flex:1;max-width:420px;position:relative}.search input{width:100%;padding:9px 14px;border-radius:20px;border:1px solid var(--line);background:#efece6}
+.drop{position:absolute;top:42px;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 24px #0002;padding:6px;display:none}.drop a{display:block;padding:7px 10px;border-radius:6px}.drop a:hover{background:var(--bg)}
+.page{padding:26px 28px;max-width:1280px}h1{font-size:28px;margin:0 0 4px;color:var(--g9);font-weight:800}.sub{color:var(--mut);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}.dark{background:var(--g9);color:#eaf5ef;border:none}
+.grid{display:grid;gap:16px}.g4{grid-template-columns:repeat(4,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}.g21{grid-template-columns:2fr 1fr}
+.k{font-size:11px;letter-spacing:.08em;color:var(--mut);font-weight:700;text-transform:uppercase}.big{font-size:30px;font-weight:800;margin:6px 0}
+.btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 14px;cursor:pointer;font-weight:600}.btn:hover{background:#f3f1ea}.pri{background:var(--g9);color:#fff;border-color:var(--g9)}.pri:hover{background:var(--g8)}.tan{background:var(--beige);border-color:var(--beige)}
+.btn:disabled{opacity:.55;cursor:wait}.post{margin-top:auto;padding:12px;text-align:center}
+.pill{display:inline-block;padding:3px 9px;border-radius:12px;font-size:11px;font-weight:700;background:var(--g1);color:var(--g9)}
+.st-applied{background:#e6eefb;color:#2952a3}.st-screening{background:#ddf2ee;color:#11695c}.st-shortlisted{background:#eee6fb;color:#6a3fb5}.st-interview{background:#fbe9de;color:#b2501a}.st-offer,.st-hired{background:#dff3e3;color:#1e7a3a}.st-rejected{background:#f7e1df;color:#a33}
+.st-draft,.st-closed,.st-archived{background:#eee;color:#555}.st-paused{background:#f4ead2;color:#8a6d3b}
+table{width:100%;border-collapse:collapse}th{font-size:11px;letter-spacing:.06em;color:var(--mut);text-align:left;padding:10px;border-bottom:1px solid var(--line);text-transform:uppercase}td{padding:11px 10px;border-bottom:1px solid #f0ede6}tr.click:hover td{background:#faf8f3;cursor:pointer}
+.av{width:34px;height:34px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:#fff;font-weight:700;flex:none}
+.row{display:flex;align-items:center;gap:10px}.between{justify-content:space-between}.wrap{flex-wrap:wrap}.mut{color:var(--mut)}.small{font-size:12px}
+.bar{height:8px;background:#ece9e1;border-radius:6px;overflow:hidden}.bar>i{display:block;height:100%;background:var(--g9)}
+.funnel .f{display:flex;align-items:center;gap:12px;margin:6px 0}.funnel .fb{height:40px;border-radius:8px;display:flex;align-items:center;padding:0 14px;color:#fff;font-weight:600;min-width:120px}
+input.in,select.in,textarea.in{width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:#fff}label{font-size:12px;font-weight:700;color:#444;display:block;margin:10px 0 4px}
+.modal{position:fixed;inset:0;background:#0006;display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}.modal .card{width:min(640px,100%);max-height:90vh;overflow:auto}
+.toast{position:fixed;bottom:20px;right:20px;background:var(--g9);color:#fff;padding:12px 16px;border-radius:10px;z-index:60;max-width:380px}.toast.err{background:var(--red)}
+.chip{display:inline-block;border:1px solid var(--line);border-radius:7px;padding:3px 9px;margin:3px;font-size:12px;background:#faf9f5}.chip.ok{border-color:#9fd3b4;background:#eaf7ef}.chip.no{border-color:#efc2bd;background:#fbefed}
+.msg{padding:10px 12px;border-radius:10px;margin:8px 0;max-width:80%}.msg.recruiter{background:var(--g1);margin-left:auto}.msg.candidate{background:#fff;border:1px solid var(--line)}.msg.system{background:transparent;color:var(--mut);font-size:12px;text-align:center;max-width:100%}
+.login{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}.login .l{background:var(--g9);color:#e5f3eb;padding:60px;display:flex;flex-direction:column;justify-content:center}.login .r{display:flex;align-items:center;justify-content:center;padding:30px}
+.spark{display:flex;align-items:flex-end;gap:4px;height:46px}.spark i{flex:1;background:#d7e6dd;border-radius:3px}.spark i:last-child{background:var(--g9)}
+.md h3{margin:12px 0 6px}.md ul{padding-left:18px}
+@media(max-width:900px){.side{display:none}.main{margin-left:0}.g4,.g3,.g2,.g21,.login{grid-template-columns:1fr}.login .l{display:none}.page{padding:18px 16px}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const STAGES = ['applied', 'screening', 'shortlisted', 'interview', 'offer', 'hired', 'rejected'];
+const cap = (s) => s ? s[0].toUpperCase() + s.slice(1) : '';
+const fmtDate = (d) => d ? new Date(d).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '';
+const fmtTime = (d) => new Date(d).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+const fmtDT = (d) => `${fmtDate(d)}, ${fmtTime(d)}`;
+const money = (n) => n ? '₹' + (n >= 100000 ? (n / 100000).toFixed(1).replace('.0', '') + 'L' : n.toLocaleString('en-IN')) : '—';
+const initials = (n) => String(n || '?').split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase();
+const av = (n, c, s = 34) => `<span class="av" style="background:${c || '#2f6b55'};width:${s}px;height:${s}px;font-size:${s / 2.6}px">${esc(initials(n))}</span>`;
+const pill = (s) => `<span class="pill st-${s}">${esc(cap(s))}</span>`;
+const ico = { dash: '▦', jobs: '💼', cand: '👥', int: '📅', msg: '💬', ana: '📈', rep: '📄', co: '🏢', rec: '🧑‍💼', bell: '🔔', set: '⚙️', help: '❓' };
+
+let TOKEN = localStorage.getItem('cb_token'), ME = null;
+async function api(path, opts = {}) {
+  const headers = { ...(opts.body && !(opts.body instanceof FormData) ? { 'content-type': 'application/json' } : {}), ...(TOKEN ? { authorization: 'Bearer ' + TOKEN } : {}) };
+  const res = await fetch('/api' + path, { ...opts, headers, body: opts.body && !(opts.body instanceof FormData) ? JSON.stringify(opts.body) : opts.body });
+  const data = await res.json().catch(() => ({}));
+  if (res.status === 401 && !path.startsWith('/auth')) { logout(); throw new Error('Please sign in'); }
+  if (!res.ok) throw new Error(data.error || 'Request failed');
+  return data;
+}
+function toast(m, err) { const t = document.createElement('div'); t.className = 'toast' + (err ? ' err' : ''); t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), err ? 7000 : 3000); }
+function go(p) { history.pushState({}, '', p); render(); }
+window.onpopstate = render;
+document.addEventListener('click', (e) => { const a = e.target.closest('a[data-go]'); if (a) { e.preventDefault(); go(a.getAttribute('href')); } });
+function logout() { localStorage.removeItem('cb_token'); TOKEN = null; ME = null; go('/login'); }
+async function busy(btn, fn) { const t = btn.textContent; btn.disabled = true; btn.textContent = '⏳ Working…'; try { await fn(); } catch (e) { toast(e.message, 1); } finally { btn.disabled = false; btn.textContent = t; } }
+function modal(html, onMount) { const m = document.createElement('div'); m.className = 'modal'; m.innerHTML = `<div class="card">${html}</div>`; m.onclick = (e) => { if (e.target === m) m.remove(); }; document.body.appendChild(m); onMount && onMount(m); return m; }
+
+const NAV = [['/', 'dash', 'Dashboard'], ['/jobs', 'jobs', 'Jobs'], ['/candidates', 'cand', 'Candidates'], ['/interviews', 'int', 'Interviews'], ['/messages', 'msg', 'Messaging'], ['/analytics', 'ana', 'Analytics'], ['/reports', 'rep', 'Reports'],
+  null, ['/company', 'co', 'Company'], ['/recruiters', 'rec', 'Recruiters'], ['/notifications', 'bell', 'Notifications'], ['/settings', 'set', 'Settings']];
+
+function shell(active, body) {
+  return `<div class="app"><aside class="side"><div class="brand">CareerBridge<small>Employer Portal</small></div><div style="height:18px"></div>
+  ${NAV.map((n) => n ? `<a data-go href="${n[0]}" class="nav ${active === n[0] ? 'on' : ''}"><span>${ico[n[1]]}</span>${n[2]}</a>` : '<div class="sec">ORGANIZATION</div>').join('')}
+  <div style="height:12px"></div><a data-go href="/help" class="nav ${active === '/help' ? 'on' : ''}">${ico.help} Help Center</a><a class="nav" style="color:var(--red)" onclick="logout()">↪ Log Out</a>
+  <a data-go href="/jobs/new" class="btn pri post">＋ Post a New Job</a></aside>
+  <div class="main"><div class="top"><div class="search"><input id="gs" placeholder="Search candidates, jobs…" autocomplete="off"><div class="drop" id="gsd"></div></div><div style="flex:1"></div>
+  <a data-go href="/notifications" title="Notifications" style="font-size:18px">🔔</a><a data-go href="/profile" class="row"><div style="text-align:right"><b>${esc(ME.user.name)}</b><div class="small mut">${esc(ME.user.title || '')} · ${esc(ME.company.name)}</div></div>${av(ME.user.name, '#123d30', 36)}</a></div>
+  <div class="page" id="page">${body}</div></div></div>`;
+}
+function bindSearch() {
+  const i = $('#gs'), d = $('#gsd'); if (!i) return; let t;
+  i.oninput = () => { clearTimeout(t); t = setTimeout(async () => { if (!i.value.trim()) return d.style.display = 'none'; const r = await api('/search?q=' + encodeURIComponent(i.value));
+    d.innerHTML = [...r.candidates.map((c) => `<a data-go href="/candidates/${c.id}">👤 ${esc(c.name)} <span class="mut small">· ${esc(c.job_title)}</span></a>`), ...r.jobs.map((j) => `<a data-go href="/jobs">💼 ${esc(j.title)} <span class="mut small">· ${esc(j.department || '')}</span></a>`)].join('') || '<div class="mut small" style="padding:8px">No results</div>';
+    d.style.display = 'block'; }, 250); };
+  i.onblur = () => setTimeout(() => d.style.display = 'none', 200);
+}
+
+// ------------------------------------------------------------------ pages
+const pages = {};
+pages.login = () => {
+  root.innerHTML = `<div class="login"><div class="l"><h1 style="color:#fff;font-size:40px">CareerBridge</h1><p style="font-size:18px;line-height:1.6">Recruitment Management Portal — post jobs, rank candidates with AI resume matching, schedule interviews and keep every applicant informed.</p><p class="small" style="opacity:.7">Leo Club of Hopeville · Community Connect · ORIGEN</p></div>
+  <div class="r"><div class="card" style="width:380px"><h2 style="margin-top:0">Sign in</h2><form id="f"><label>Email</label><input class="in" name="email" value="sarah.jenkins@example.com"><label>Password</label><input class="in" type="password" name="password" value="demo1234">
+  <button class="btn pri" style="width:100%;margin-top:16px">Sign in</button></form><p class="small mut">Demo: sarah.jenkins@example.com / demo1234</p><hr style="border:none;border-top:1px solid var(--line)">
+  <details><summary class="small" style="cursor:pointer">Register a new organisation</summary><form id="rf"><label>Organisation</label><input class="in" name="company" required><label>Your name</label><input class="in" name="name" required><label>Email</label><input class="in" name="email" type="email" required><label>Password</label><input class="in" name="password" type="password" minlength="6" required><button class="btn" style="width:100%;margin-top:12px">Create account</button></form></details></div></div></div>`;
+  const done = (r) => { TOKEN = r.token; localStorage.setItem('cb_token', TOKEN); go('/'); };
+  $('#f').onsubmit = async (e) => { e.preventDefault(); try { done(await api('/auth/login', { method: 'POST', body: Object.fromEntries(new FormData(e.target)) })); } catch (x) { toast(x.message, 1); } };
+  $('#rf').onsubmit = async (e) => { e.preventDefault(); try { done(await api('/auth/register', { method: 'POST', body: Object.fromEntries(new FormData(e.target)) })); } catch (x) { toast(x.message, 1); } };
+};
+
+pages['/'] = async () => {
+  const off = new Date(); off.setHours(0, 0, 0, 0); const end = new Date(off.getTime() + 86400000);
+  const d = await api(`/dashboard?from=${off.toISOString()}&to=${end.toISOString()}`);
+  const h = new Date().getHours(), greet = h < 12 ? 'Good Morning' : h < 17 ? 'Good Afternoon' : 'Good Evening';
+  const ch = d.apps_prev ? Math.round((d.apps_30 - d.apps_prev) / d.apps_prev * 100) : 100;
+  const goal = Math.min(100, Math.round((d.hired + d.offers) / d.hiring_goal * 100));
+  const colors = ['#123d30', '#3f6e5c', '#6f9283', '#a7bdb3', '#d9e3dd'];
+  const max = d.funnel[0].count || 1;
+  return `<div class="row between wrap"><div><h1>${greet}, ${esc(ME.user.name.split(' ')[0])}</h1>
+  <p class="sub" style="margin:0">You currently have <b>${d.active_jobs} Active Jobs</b>, <b>${d.applications} Applications</b>, <b>${d.interviews} Interviews</b>, and <b>${d.offers} Offers</b>.<br>Priority for today: ${esc(d.priority)}</p>
+  <p class="small mut">📅 ${new Date().toDateString()} · <b>${esc(d.location || 'HQ Office')}</b></p></div>
+  <div class="card row" style="gap:6px"><a data-go href="/jobs/new" class="btn">＋ Post Job</a><a data-go href="/recruiters" class="btn">Invite</a><a data-go href="/candidates" class="btn">Schedule</a><button class="btn" onclick="exportApps()">Export</button></div></div>
+  <div class="card row" style="margin:14px 0;padding:10px 16px;width:fit-content"><span class="k">Hiring goal progress</span><div class="bar" style="width:160px"><i style="width:${goal}%"></i></div><b>${goal}% Reached</b></div>
+  <div class="grid g4">
+   <div class="card"><span class="pill">active</span><div class="k" style="margin-top:10px">Active Jobs</div><div class="big">${d.active_jobs}</div><div class="small mut">Published and accepting applications</div></div>
+   <div class="card"><span class="pill">${ch >= 0 ? '▲' : '▼'} ${Math.abs(ch)}% vs last month</span><div class="k" style="margin-top:10px">Total Applicants</div><div class="big">${d.applications}</div><div class="small mut">${d.apps_30} in the last 30 days</div></div>
+   <div class="card"><span class="pill">pipeline</span><div class="k" style="margin-top:10px">Interviews</div><div class="big">${d.interviews}</div><div class="small mut">${d.today.length} scheduled today</div></div>
+   <div class="card"><span class="pill">avg match ${Math.round(d.avg_match)}%</span><div class="k" style="margin-top:10px">Offers Sent</div><div class="big">${d.offers}</div><div class="small mut">${d.hired} hired</div></div></div>
+  <div class="grid g21" style="margin-top:16px"><div class="card funnel"><b>Recruitment Funnel</b><div class="small mut" style="margin-bottom:8px">Overall conversion across all roles</div>
+   ${d.funnel.map((f, i) => `<div class="f"><div class="fb" style="width:${Math.max(18, f.count / max * 100)}%;background:${colors[i]};color:${i > 2 ? '#123d30' : '#fff'}">0${i + 1} &nbsp; ${cap(f.stage)}</div><b>${f.count}</b>${i ? `<span class="small mut">${d.funnel[i - 1].count ? Math.round(f.count / d.funnel[i - 1].count * 100) : 0}% conversion</span>` : ''}</div>`).join('')}</div>
+   <div class="card"><div class="row between"><b>Upcoming Today</b><span class="pill st-rejected">Live</span></div>
+   ${d.today.length ? d.today.map((i) => `<div style="border-left:3px solid var(--g9);padding:8px 12px;margin:12px 0"><div class="small mut">🕑 ${fmtTime(i.scheduled_at)} · ${relTime(i.scheduled_at)}</div><b>${esc(i.type)}</b><div class="small">${esc(i.name)} · ${esc(i.job_title)}</div>
+   <div class="row" style="margin-top:8px">${i.meeting_link ? `<a class="btn pri" target="_blank" href="${esc(i.meeting_link)}">Join Meet</a>` : ''}<a data-go class="btn" href="/candidates/${i.app_id}">Open</a></div></div>`).join('') : '<p class="mut">No interviews today.</p>'}
+   <a data-go href="/interviews" class="btn" style="display:block;text-align:center;margin-top:10px">View Full Calendar</a></div></div>`;
+};
+function relTime(d) { const m = Math.round((new Date(d) - Date.now()) / 60000); if (m < -45) return 'done'; if (m <= 0) return 'now'; return m < 60 ? `in ${m}m` : `in ${Math.round(m / 60)} hours`; }
+async function exportApps() { const rows = await api('/applications'); csv('candidates.csv', [['Name', 'Email', 'Job', 'Stage', 'Match', 'ATS', 'Source', 'Applied'], ...rows.map((r) => [r.name, r.email, r.job_title, r.stage, r.match_score, r.ats_score, r.source, r.created_at])]); }
+function csv(name, rows) { const t = rows.map((r) => r.map((c) => `"${String(c ?? '').replace(/"/g, '""')}"`).join(',')).join('\n'); const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([t], { type: 'text/csv' })); a.download = name; a.click(); }
+
+pages['/jobs'] = async () => {
+  const jobs = await api('/jobs'); window._jobs = jobs;
+  const cnt = (s) => jobs.filter((j) => j.status === s).length;
+  const apps = jobs.reduce((a, j) => a + j.applicants, 0);
+  const avgM = Math.round(jobs.filter((j) => j.avg_match).reduce((a, j) => a + j.avg_match, 0) / (jobs.filter((j) => j.avg_match).length || 1));
+  return `<div class="row between wrap"><div><h1>Jobs Management</h1><p class="sub">Manage, monitor, publish, and optimize all job postings across your organization.</p></div>
+  <div class="row"><button class="btn" onclick="csv('jobs.csv',[['Title','Department','Location','Status','Applicants','Avg match'],..._jobs.map(j=>[j.title,j.department,j.location,j.status,j.applicants,j.avg_match])])">⬇ Export Jobs</button><a data-go href="/jobs/new" class="btn pri">＋ Post Job</a></div></div>
+  <div class="grid" style="grid-template-columns:repeat(6,1fr)">${[['Total Jobs', jobs.length], ['Published', cnt('published')], ['Draft', cnt('draft')], ['Closed', cnt('closed')], ['Applicants', apps], ['AI Match', avgM + '%']].map(([k, v]) => `<div class="card"><div class="k">${k}</div><div class="big" style="font-size:24px">${v}</div></div>`).join('')}</div>
+  <div class="card" style="margin-top:16px;padding:6px"><table><tr><th>Title & Dept</th><th>Recruiter</th><th>Applicants</th><th>AI Match</th><th>Status</th><th></th></tr>
+  ${jobs.map((j) => `<tr><td><a data-go href="/jobs/${j.id}"><b>${esc(j.title)}</b></a>${j.is_urgent ? ' <span class="pill st-rejected">Urgent</span>' : ''}<div class="small mut">${esc(j.department || '')} · ${esc(j.location || '')}</div></td><td>${esc(j.recruiter_name || '')}</td>
+  <td><a data-go href="/candidates?job=${j.id}"><b>${j.applicants}</b></a></td><td>✦ ${j.avg_match ?? '—'}%</td><td>${pill(j.status)}</td>
+  <td style="white-space:nowrap"><button class="btn small" onclick="jobInsights(${j.id},this)">✦ AI insights</button> <a data-go class="btn small" href="/jobs/${j.id}/edit">Edit</a> <button class="btn small" onclick="copyLink(${j.id})">🔗</button></td></tr>`).join('')}</table></div>`;
+};
+function copyLink(id) { const u = `${location.origin}/careers/${ME.company.slug}/${id}`; navigator.clipboard?.writeText(u); toast('Apply link copied: ' + u); }
+async function jobInsights(id, btn) {
+  await busy(btn, async () => { const r = await api(`/jobs/${id}/insights`, { method: 'POST' });
+    modal(`<h2 style="margin-top:0">✦ AI Recruitment Insights</h2><div class="grid g2"><div class="card"><div class="k">Suggested salary range</div><div class="big" style="font-size:22px">${esc(r.currency || '')} ${Number(r.salary_min).toLocaleString()} – ${Number(r.salary_max).toLocaleString()}</div><div class="small mut">${esc(r.salary_note)}</div></div>
+    <div class="card"><div class="k">Market competition</div><div class="big" style="font-size:22px">${esc(r.competition)}</div><div class="small mut">${esc(r.competition_note)} · ~${r.time_to_fill_days} days to fill</div></div></div>
+    <h3>Posting tips</h3><ul>${(r.posting_tips || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul><p class="small mut">Generated by ${esc(r.model)} — an AI estimate to support your decision.</p><button class="btn" onclick="this.closest('.modal').remove()">Close</button>`); });
+}
+
+pages.jobForm = async (id) => {
+  const j = id ? (await api('/jobs')).find((x) => x.id == id) : { status: 'published', work_mode: 'Hybrid', employment_type: 'Full-time' };
+  setTimeout(() => {
+    const f = $('#jf');
+    $('#gen').onclick = (e) => busy(e.target, async () => { const b = Object.fromEntries(new FormData(f)); if (!b.title) throw new Error('Enter a job title first');
+      const r = await api('/jobs/generate', { method: 'POST', body: b }); f.description.value = r.description || ''; f.requirements.value = r.requirements || ''; f.skills.value = (r.skills || []).join(', ');
+      if (r.salary_min) { f.salary_min.value = r.salary_min; f.salary_max.value = r.salary_max; } toast('AI draft ready — review before publishing'); });
+    f.onsubmit = async (e) => { e.preventDefault(); const b = Object.fromEntries(new FormData(f)); b.is_urgent = !!f.is_urgent.checked;
+      try { if (id) await api('/jobs/' + id, { method: 'PUT', body: b }); else await api('/jobs', { method: 'POST', body: b }); toast('Job saved'); go('/jobs'); } catch (x) { toast(x.message, 1); } };
+  });
+  const v = (k) => esc(j[k] ?? '');
+  const sel = (n, opts) => `<select class="in" name="${n}">${opts.map((o) => `<option ${j[n] === o ? 'selected' : ''}>${o}</option>`).join('')}</select>`;
+  return `<h1>${id ? 'Edit Job' : 'Post a New Job'}</h1><p class="sub">Fill in the basics, then let AI draft the description.</p><form id="jf" class="card">
+  <div class="grid g3"><div><label>Job title *</label><input class="in" name="title" value="${v('title')}" required></div><div><label>Department</label><input class="in" name="department" value="${v('department')}"></div><div><label>Location</label><input class="in" name="location" value="${v('location')}"></div>
+  <div><label>Work mode</label>${sel('work_mode', ['On-site', 'Hybrid', 'Remote'])}</div><div><label>Employment type</label>${sel('employment_type', ['Full-time', 'Part-time', 'Contract', 'Internship'])}</div><div><label>Status</label><select class="in" name="status">${['published', 'draft', 'paused', 'closed', 'archived'].map((s) => `<option ${j.status === s ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
+  <div><label>Experience min (yrs)</label><input class="in" name="experience_min" value="${v('experience_min')}"></div><div><label>Experience max (yrs)</label><input class="in" name="experience_max" value="${v('experience_max')}"></div><div><label><input type="checkbox" name="is_urgent" ${j.is_urgent ? 'checked' : ''}> Urgent</label></div>
+  <div><label>Salary min (₹/yr)</label><input class="in" name="salary_min" value="${v('salary_min')}"></div><div><label>Salary max (₹/yr)</label><input class="in" name="salary_max" value="${v('salary_max')}"></div></div>
+  <label>Notes for AI (optional)</label><input class="in" name="notes" placeholder="e.g. fresher friendly, mentoring provided"><button type="button" id="gen" class="btn tan" style="margin-top:10px">✦ Generate description with AI</button>
+  <label>Required skills (comma separated)</label><input class="in" name="skills" value="${esc((j.skills || []).join(', '))}"><label>Description</label><textarea class="in" rows="6" name="description">${v('description')}</textarea>
+  <label>Requirements</label><textarea class="in" rows="5" name="requirements">${v('requirements')}</textarea><div class="row" style="margin-top:14px"><button class="btn pri">Save job</button><a data-go href="/jobs" class="btn">Cancel</a></div></form>`;
+};
+
+pages['/candidates'] = async () => {
+  const q = new URLSearchParams(location.search); const jobs = await api('/jobs');
+  const rows = await api('/applications?' + q.toString());
+  setTimeout(() => { $('#fj').onchange = $('#fs').onchange = () => { const p = new URLSearchParams(); if ($('#fj').value) p.set('job', $('#fj').value); if ($('#fs').value) p.set('stage', $('#fs').value); go('/candidates?' + p); }; });
+  return `<div class="row between wrap"><div><h1>Candidates</h1><p class="sub">Ranked by AI match score — skills first. The final decision stays with you.</p></div><button class="btn pri" onclick="addCandidate()">＋ Add candidate (upload resume)</button></div>
+  <div class="row" style="margin-bottom:12px"><select class="in" id="fj" style="width:260px"><option value="">All jobs</option>${jobs.map((j) => `<option value="${j.id}" ${q.get('job') == j.id ? 'selected' : ''}>${esc(j.title)}</option>`).join('')}</select>
+  <select class="in" id="fs" style="width:180px"><option value="">All stages</option>${STAGES.map((s) => `<option ${q.get('stage') === s ? 'selected' : ''}>${s}</option>`).join('')}</select></div>
+  <div class="card" style="padding:6px"><table><tr><th>Candidate</th><th>Applied job</th><th>Match</th><th>ATS</th><th>Stage</th><th>Source</th><th>Applied</th></tr>
+  ${rows.map((r) => `<tr class="click" onclick="go('/candidates/${r.id}')"><td><div class="row">${av(r.name, r.avatar_color)}<div><b>${esc(r.name)}</b><div class="small mut">${esc(r.current_title || '')}</div></div></div></td><td>${esc(r.job_title)}</td>
+  <td><b>${r.match_score}%</b> ${r.match_score >= 85 ? '<span class="pill">Top Match</span>' : ''}</td><td>${r.ats_score}%</td><td>${pill(r.stage)}</td><td class="small">${esc(r.source)}</td><td class="small">${fmtDate(r.created_at)}</td></tr>`).join('') || '<tr><td colspan=7 class="mut">No candidates yet.</td></tr>'}</table></div>`;
+};
+async function addCandidate() {
+  const jobs = await api('/jobs');
+  modal(`<h2 style="margin-top:0">Add candidate</h2><form id="ac"><label>Job</label><select class="in" name="job_id">${jobs.map((j) => `<option value="${j.id}">${esc(j.title)}</option>`).join('')}</select>
+  <div class="grid g2"><div><label>Name *</label><input class="in" name="name" required></div><div><label>Email *</label><input class="in" name="email" type="email" required></div></div>
+  <label>Resume (PDF, DOCX or TXT) *</label><input class="in" type="file" name="resume" accept=".pdf,.docx,.txt" required><label>Source</label><input class="in" name="source" value="Referral">
+  <div class="row" style="margin-top:14px"><button class="btn pri">Upload & score</button></div></form>`, (m) => {
+    $('#ac', m).onsubmit = async (e) => { e.preventDefault(); const b = e.submitter; await busy(b, async () => { const r = await api('/applications', { method: 'POST', body: new FormData(e.target) }); m.remove(); toast(`Scored: ${r.match_score}% match, ${r.ats_score}% ATS`); go('/candidates/' + r.id); }); };
+  });
+}
+
+pages.candidate = async (id) => {
+  const a = await api('/applications/' + id); window._a = a; const d = a.match_details || {}, ins = a.ai_insights, kit = a.ai_interview;
+  if (a.ai_status === 'pending') setTimeout(() => { if (location.pathname === '/candidates/' + id) render(); }, 4000);
+  const next = a.interviews.find((i) => i.status === 'scheduled');
+  return `<div class="small mut"><a data-go href="/candidates">Candidates</a> › <b>${esc(a.name)}</b></div>
+  <div class="row between wrap"><div><h1>Candidate Details</h1><p class="sub">Review profile, interview progress, and AI insights.</p></div>
+  <div class="row wrap"><a class="btn tan" href="#msgs">✉ Send Message</a><button class="btn pri" onclick="schedule(${a.id})">📅 Schedule Interview</button>
+  <select class="in" style="width:170px" onchange="moveStage(${a.id},this.value)"><option value="">Move Stage ▾</option>${STAGES.map((s) => `<option value="${s}">${cap(s)}</option>`).join('')}</select></div></div>
+  <div class="grid g21"><div class="grid">
+   <div class="card"><div class="row" style="align-items:flex-start;gap:18px">${av(a.name, a.avatar_color, 84)}<div style="flex:1"><div class="row wrap"><h2 style="margin:0">${esc(a.name)}</h2>${a.match_score >= 85 ? '<span class="pill">Top Match</span>' : ''}<span class="pill" style="background:var(--beige);color:#5b4a2b">${esc(a.department || '')}</span></div>
+   <div style="margin:6px 0 12px">${esc(a.current_title || '')}${a.current_company ? ' at ' + esc(a.current_company) : ''} · applied for <b>${esc(a.job_title)}</b></div>
+   <div class="row wrap">${[['Score', a.match_score + '%'], ['AI Match', ins ? ins.ai_fit : '…'], ['Experience', (a.experience_years ?? '?') + ' Yrs'], ['ATS', a.ats_score + '%']].map(([k, v]) => `<div class="card" style="padding:8px 14px"><div class="small mut">${k}</div><b>${esc(v)}</b></div>`).join('')}</div>
+   <div class="row small" style="margin-top:10px">${a.linkedin_url ? `<a target="_blank" href="https://${esc(a.linkedin_url.replace(/^https?:\/\//, ''))}">LinkedIn</a>` : ''}${a.github_url ? `<a target="_blank" href="https://${esc(a.github_url.replace(/^https?:\/\//, ''))}">GitHub</a>` : ''}<a href="#" onclick="dlResume(${a.id});return false">⬇ Resume</a><span class="mut">${esc(a.email || '')}</span></div></div></div></div>
+   <div class="card"><h3 style="margin-top:0">Profile Summary</h3><p>${ins ? esc(ins.summary) : '<span class="mut">Generating AI summary…</span>'}</p><div>${(ins?.tags || []).map((t) => `<span class="chip">${esc(t)}</span>`).join('')}</div></div>
+   <div class="card dark"><div class="row between"><b>✦ AI Resume Insights</b><button class="btn small" onclick="regen(${a.id},this)">↻ ${ins ? 'Regenerate' : 'Generate'}</button></div>
+   ${a.ai_status === 'error' ? `<p class="small" style="background:#ffffff1a;padding:8px;border-radius:8px">AI unavailable: ${esc(a.ai_error)} — showing the Python matcher's summary.</p>` : ''}
+   <div class="grid g3" style="margin-top:12px"><div><div style="font-size:44px;font-weight:800">${a.ats_score}%</div><div class="small">ATS Score</div><p class="small" style="opacity:.85">${esc(ins?.ats_comment || '')}</p></div>
+   <div><div class="k" style="color:#9fd3b4">Top strengths</div>${(ins?.strengths || []).map((s) => `<div style="margin:6px 0">✓ ${esc(s)}</div>`).join('')}</div>
+   <div><div class="k" style="color:#9fd3b4">Growth areas</div>${(ins?.growth_areas || []).map((s) => `<div style="margin:6px 0">ⓘ ${esc(s)}</div>`).join('')}</div></div>
+   ${ins?.recommendation ? `<p style="border-top:1px solid #ffffff22;padding-top:10px">➜ ${esc(ins.recommendation)}</p>` : ''}<p class="small" style="opacity:.6">${ins ? (ins.source === 'ai' ? 'Generated by ' + esc(ins.model) : 'From the Python skill matcher') : ''} · Scores support the recruiter's decision, they do not replace it.</p></div>
+   <div class="card"><div class="row between"><h3 style="margin:0">Interview kit — AI suggested questions</h3><button class="btn small" onclick="kit(${a.id},this)">✦ ${kit ? 'Regenerate' : 'Generate'}</button></div>
+   ${kit ? `<div class="row wrap" style="margin:10px 0"><span class="pill">Readiness ${kit.readiness}% ${esc(kit.readiness_label)}</span><span class="pill">Predicted score ${kit.predicted_score}/10</span></div><p class="small mut">${esc(kit.basis)}</p>
+   ${(kit.questions || []).map((q) => `<div class="card" style="margin:8px 0;padding:12px;background:#faf8f3"><i>"${esc(q.question)}"</i><div class="small mut">Focus: ${esc(q.focus)} · ${q.relevance}% relevance</div></div>`).join('')}
+   ${kit.agenda ? `<b>Agenda</b><ul>${kit.agenda.map((x) => `<li>${esc(x.item)} (${x.minutes}m)</li>`).join('')}</ul>` : ''}` : '<p class="mut">Generate tailored questions from the job and this resume.</p>'}</div>
+   <div class="card" id="msgs"><h3 style="margin-top:0">Messages</h3><div style="max-height:320px;overflow:auto">${a.messages.map((m) => `<div class="msg ${m.sender_type}">${m.sender_type !== 'system' ? `<div class="small mut">${m.sender_type === 'candidate' ? esc(a.name) : esc(m.sender_name || 'Recruiter')} · ${fmtDT(m.sent_at)}</div>` : ''}${esc(m.body)}</div>`).join('') || '<p class="mut">No messages yet.</p>'}</div>
+   <textarea class="in" id="mb" rows="3" placeholder="Write to ${esc(a.name)}…"></textarea><div class="row" style="margin-top:8px"><button class="btn pri" onclick="sendMsg(${a.id},this)">Send</button><select class="in" id="intent" style="width:200px"><option>status update</option><option>interview invitation</option><option>request more information</option><option>offer</option><option>polite rejection</option></select><button class="btn tan" onclick="draft(${a.id},this)">✦ AI draft</button></div>
+   <p class="small mut">The candidate reads and replies on their status page: <a target="_blank" href="/status/${a.status_token}">/status/${a.status_token}</a></p></div></div>
+  <div class="grid" style="align-content:start"><div class="card"><div class="k">Candidate Health</div><div class="row between" style="margin-top:12px"><span>Overall Match</span><b style="font-size:22px">${a.match_score}%</b></div><div class="row between"><span>ATS Compatibility</span><b>${a.ats_score >= 80 ? 'High' : a.ats_score >= 60 ? 'Medium' : 'Low'}</b></div><div class="row between" style="margin-top:6px"><span>Current Stage</span>${pill(a.stage)}</div>
+   <div class="k" style="margin-top:16px">Next Action</div>${next ? `<div class="card" style="background:#f3f1ea;margin-top:8px"><b>📅 ${esc(next.type)}</b><div class="small">${fmtDT(next.scheduled_at)} · ${esc(next.platform)}</div>${next.meeting_link ? `<a class="small" target="_blank" href="${esc(next.meeting_link)}"><b>Join link</b></a>` : ''}</div>` : `<p class="small mut">${esc(ins?.recommendation || 'Review and move to the next stage.')}</p>`}</div>
+   <div class="card"><div class="k">Skill match (Python matcher)</div><div style="margin-top:8px">${(d.matched_skills || []).map((s) => `<span class="chip ok">✓ ${esc(s)}</span>`).join('')}${(d.missing_skills || []).map((s) => `<span class="chip no">✗ ${esc(s)}</span>`).join('')}</div>
+   <div class="small mut" style="margin-top:8px">${Object.entries(d.breakdown || {}).slice(0, 4).map(([k, v]) => `${k} ${v}%`).join(' · ')}</div></div>
+   <div class="card"><div class="k">Profile Details</div>${[['Availability', a.availability], ['Recruiter', a.recruiter_name], ['Source', a.source], ['Applied On', fmtDate(a.created_at)], ['Education', (d.education || []).join(', ')]].map(([k, v]) => `<div style="margin-top:10px"><div class="small mut">${k}</div><b>${esc(v || '—')}</b></div>`).join('')}</div>
+   <div class="card"><div class="k">Core Skills</div><div style="margin-top:6px">${(d.skills_found || []).map((s) => `<span class="chip">${esc(s)}</span>`).join('')}</div></div>
+   <div class="card"><div class="k">Stage timeline</div>${a.history.map((h) => `<div class="small" style="margin-top:8px">${pill(h.to_stage)} ${fmtDate(h.changed_at)} ${h.by_name ? '· ' + esc(h.by_name) : ''}</div>`).join('')}</div></div></div>`;
+};
+async function moveStage(id, s) { if (!s) return; try { await api(`/applications/${id}/stage`, { method: 'PATCH', body: { stage: s } }); toast('Moved to ' + s + ' — candidate informed'); render(); } catch (e) { toast(e.message, 1); } }
+function regen(id, b) { busy(b, async () => { const a = await api(`/applications/${id}/ai`, { method: 'POST' }); if (a.ai_status === 'error') toast(a.ai_error, 1); render(); }); }
+function kit(id, b) { busy(b, async () => { await api(`/applications/${id}/interview-kit`, { method: 'POST' }); render(); }); }
+function sendMsg(id, b) { busy(b, async () => { await api(`/applications/${id}/messages`, { method: 'POST', body: { body: $('#mb').value } }); toast('Message sent'); render(); }); }
+function draft(id, b) { busy(b, async () => { const r = await api(`/applications/${id}/draft`, { method: 'POST', body: { intent: $('#intent').value } }); $('#mb').value = r.body; }); }
+async function dlResume(id) { const r = await fetch(`/api/applications/${id}/resume`, { headers: { authorization: 'Bearer ' + TOKEN } }); const a = document.createElement('a'); a.href = URL.createObjectURL(await r.blob()); a.download = (_a.resume_name || _a.name + '-resume.txt'); a.click(); }
+async function schedule(appId) {
+  const me = await api('/company'); const dt = new Date(Date.now() + 86400000); dt.setHours(10, 0, 0, 0);
+  const local = new Date(dt - dt.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+  modal(`<h2 style="margin-top:0">Schedule Interview</h2><p class="small mut">1 Candidate ✓ → 2 Date & time → 3 Platform → 4 Interviewer → 5 Confirm (moves stage to Interview and informs the candidate)</p><form id="sf">
+  <label>2 · Date & time</label><input class="in" type="datetime-local" name="when" value="${local}" required><div class="grid g2"><div><label>Duration</label><select class="in" name="duration_minutes"><option>30</option><option selected>45</option><option>60</option></select></div><div><label>Type</label><select class="in" name="type"><option>Technical Interview</option><option>HR Round</option><option>Cultural Fit</option><option>Portfolio Review</option></select></div></div>
+  <label>3 · Platform</label><select class="in" name="platform"><option>Jitsi Meet</option><option>Google Meet</option><option>Zoom</option><option>In-Person</option></select><label>Meeting link (Google Meet/Zoom) or address (in-person) — Jitsi links are created automatically</label><input class="in" name="link">
+  <label>4 · Interviewer</label><select class="in" name="interviewer_id">${me.recruiters.map((r) => `<option value="${r.id}">${esc(r.name)} — ${esc(r.title || r.role)}</option>`).join('')}</select>
+  <button class="btn pri" style="margin-top:16px">5 · Confirm</button></form>`, (m) => {
+    $('#sf', m).onsubmit = (e) => { e.preventDefault(); const b = Object.fromEntries(new FormData(e.target));
+      busy(e.submitter, async () => { await api('/interviews', { method: 'POST', body: { application_id: appId, scheduled_at: new Date(b.when).toISOString(), duration_minutes: b.duration_minutes, type: b.type, platform: b.platform, interviewer_id: b.interviewer_id,
+        meeting_link: b.platform === 'In-Person' || b.platform === 'Jitsi Meet' ? null : b.link || null, location: b.platform === 'In-Person' ? b.link : null } }); m.remove(); toast('Interview scheduled — candidate informed'); render(); }); };
+  });
+}
+
+pages['/interviews'] = async () => {
+  const list = await api('/interviews'); const now = Date.now();
+  const today = list.filter((i) => new Date(i.scheduled_at).toDateString() === new Date().toDateString());
+  const up = list.filter((i) => i.status === 'scheduled' && new Date(i.scheduled_at) > now).sort((a, b) => new Date(a.scheduled_at) - new Date(b.scheduled_at));
+  window._ints = list;
+  return `<div class="row between wrap"><div><h1>Interview Management</h1><p class="sub">Schedule, manage, evaluate, and track every interview across your pipeline.</p></div><div class="row"><button class="btn" onclick="ics()">⬇ Export Schedule (.ics)</button><a data-go href="/candidates" class="btn pri">＋ Schedule Interview</a></div></div>
+  <div class="grid g4">${[['Total Interviews', list.length], ["Today's Schedule", today.length], ['Upcoming', up.length], ['Completed', list.filter((i) => i.status === 'completed').length]].map(([k, v]) => `<div class="card"><div class="k">${k}</div><div class="big">${v}</div></div>`).join('')}</div>
+  <div class="row" style="margin:16px 0 0"><button class="btn ${window._iv !== 'cal' ? 'pri' : ''}" onclick="window._iv='table';render()">Table View</button><button class="btn ${window._iv === 'cal' ? 'pri' : ''}" onclick="window._iv='cal';render()">Calendar</button></div>
+  ${window._iv === 'cal' ? calendar(list) : ''}<div class="grid g21" style="margin-top:16px;${window._iv === 'cal' ? 'display:none' : ''}"><div class="card" style="padding:6px"><table><tr><th>Candidate</th><th>Job</th><th>Interviewer</th><th>Date / Time</th><th>Platform</th><th>Status</th><th></th></tr>
+  ${list.map((i) => `<tr><td><a data-go href="/candidates/${i.app_id}" class="row">${av(i.name, i.avatar_color, 28)}<b>${esc(i.name)}</b></a></td><td>${esc(i.job_title)}<div class="small mut">${esc(i.type)}</div></td><td>${esc(i.interviewer || '')}</td><td class="small">${fmtDT(i.scheduled_at)}</td><td>${esc(i.platform)}</td><td>${pill(i.status === 'completed' ? 'hired' : i.status === 'cancelled' ? 'rejected' : 'applied').replace(/>[^<]+</, '>' + cap(i.status) + '<')}</td>
+  <td style="white-space:nowrap">${i.status === 'scheduled' ? `${i.meeting_link ? `<a class="btn small" target="_blank" href="${esc(i.meeting_link)}">Join</a>` : ''} <button class="btn small" onclick="evaluate(${i.id})">Evaluate</button> <button class="btn small" onclick="cancelInt(${i.id})">✕</button>` : ''}</td></tr>`).join('') || '<tr><td colspan=7 class="mut">No interviews yet — schedule one from a candidate page.</td></tr>'}</table></div>
+  <div class="card"><h3 style="margin-top:0">Upcoming Interviews</h3>${up.slice(0, 4).map((i, n) => `<div style="border-left:3px solid ${n ? 'var(--line)' : 'var(--g9)'};padding:6px 12px;margin:10px 0"><b>${esc(i.name)}</b><div class="small mut">${esc(i.job_title)} · ${fmtDT(i.scheduled_at)}</div>${n === 0 ? `<div class="small"><b id="cd"></b></div>${i.meeting_link ? `<a class="btn pri small" style="display:inline-block;margin-top:6px" target="_blank" href="${esc(i.meeting_link)}">🎥 Join Meeting</a>` : ''}` : ''}</div>`).join('') || '<p class="mut">Nothing upcoming.</p>'}</div></div>`;
+};
+setInterval(() => { const el = $('#cd'); const i = (window._ints || []).filter((x) => x.status === 'scheduled' && new Date(x.scheduled_at) > Date.now()).sort((a, b) => new Date(a.scheduled_at) - new Date(b.scheduled_at))[0]; if (el && i) { const s = Math.floor((new Date(i.scheduled_at) - Date.now()) / 1000); el.textContent = `Starting in ${Math.floor(s / 3600)}h ${Math.floor(s % 3600 / 60)}m ${s % 60}s`; } }, 1000);
+function ics() { const z = (d) => new Date(d).toISOString().replace(/[-:]/g, '').replace(/\.\d+/, ''); const ev = (window._ints || []).filter((i) => i.status === 'scheduled').map((i) => `BEGIN:VEVENT\nUID:cb-${i.id}@careerbridge\nDTSTAMP:${z(Date.now())}\nDTSTART:${z(i.scheduled_at)}\nDTEND:${z(new Date(i.scheduled_at).getTime() + (i.duration_minutes || 45) * 60000)}\nSUMMARY:${i.type} – ${i.name}\nDESCRIPTION:${i.job_title} ${i.meeting_link || ''}\nEND:VEVENT`).join('\n');
+  const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([`BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//CareerBridge//EN\n${ev}\nEND:VCALENDAR`], { type: 'text/calendar' })); a.download = 'interviews.ics'; a.click(); }
+async function cancelInt(id) { if (!confirmBox()) return; await api('/interviews/' + id, { method: 'PATCH', body: { status: 'cancelled' } }); render(); }
+function confirmBox() { return true; }
+function evaluate(id) {
+  modal(`<h2 style="margin-top:0">Submit Evaluation</h2><form id="ef">${['technical', 'communication', 'culture_fit', 'problem_solving'].map((k) => `<label>${cap(k.replace('_', ' '))} (1–5)</label><input class="in" type="number" min="1" max="5" value="4" name="${k}">`).join('')}
+  <label>Recommendation</label><select class="in" name="recommendation"><option value="strong_hire">Strong hire</option><option value="hire" selected>Hire</option><option value="no_hire">No hire</option></select><label>Notes</label><textarea class="in" name="notes" rows="3"></textarea><button class="btn pri" style="margin-top:12px">Submit</button></form>`, (m) => {
+    $('#ef', m).onsubmit = (e) => { e.preventDefault(); busy(e.submitter, async () => { await api(`/interviews/${id}/evaluation`, { method: 'POST', body: Object.fromEntries(new FormData(e.target)) }); m.remove(); toast('Evaluation saved'); render(); }); };
+  });
+}
+
+pages['/messages'] = async () => {
+  const c = await api('/conversations');
+  return `<h1>Messaging</h1><p class="sub">Every candidate can be messaged at every stage — no applicant is left without an update.</p><div class="card" style="padding:6px"><table><tr><th>Candidate</th><th>Job</th><th>Stage</th><th>Last message</th><th>Unread</th></tr>
+  ${c.map((r) => `<tr class="click" onclick="go('/candidates/${r.id}#msgs')"><td><div class="row">${av(r.name, r.avatar_color, 28)}<b>${esc(r.name)}</b></div></td><td>${esc(r.job_title)}</td><td>${pill(r.stage)}</td><td class="small">${fmtDT(r.last_at)}</td><td>${r.unread ? `<span class="pill st-rejected">${r.unread} new</span>` : ''}</td></tr>`).join('') || '<tr><td colspan=5 class="mut">No conversations yet.</td></tr>'}</table></div>`;
+};
+
+pages['/analytics'] = async () => {
+  const d = await api('/analytics'); window._an = d;
+  const bars = (obj) => { const e = Object.entries(obj); const m = Math.max(1, ...e.map((x) => x[1])); return e.map(([k, v]) => `<div class="row" style="margin:7px 0"><span style="width:130px" class="small">${esc(cap(k))}</span><div class="bar" style="flex:1;height:14px"><i style="width:${v / m * 100}%"></i></div><b style="width:30px">${v}</b></div>`).join(''); };
+  const wm = Math.max(1, ...d.weekly);
+  return `<div class="row between"><div><h1>Analytics</h1><p class="sub">How candidates move through hiring and where they drop out.</p></div><button class="btn pri" onclick="anSummary(this)">✦ AI summary</button></div><div id="ais"></div>
+  <div class="grid g2"><div class="card"><b>Applications per week (last 12 weeks)</b><div class="spark" style="height:140px;margin-top:14px">${d.weekly.map((v) => `<i title="${v}" style="height:${Math.max(3, v / wm * 100)}%"></i>`).join('')}</div></div>
+  <div class="card"><b>Pipeline by stage</b>${bars(d.by_stage)}</div><div class="card"><b>Candidate sources</b>${bars(d.by_source)}</div><div class="card"><b>AI match score distribution</b>${bars(d.match_buckets)}</div><div class="card"><b>Applications by department</b>${bars(d.by_department)}</div></div>`;
+};
+function anSummary(b) { busy(b, async () => { const r = await api('/analytics/summary', { method: 'POST', body: { metrics: window._an } }); $('#ais').innerHTML = `<div class="card dark" style="margin-bottom:16px"><b>✦ ${esc(r.headline)}</b>${(r.insights || []).map((i) => `<p><b>${esc(i.title)}:</b> ${esc(i.detail)}</p>`).join('')}<ul>${(r.recommendations || []).map((x) => `<li>${esc(x)}</li>`).join('')}</ul></div>`; }); }
+
+pages['/reports'] = async () => {
+  return `<h1>Reports</h1><p class="sub">Download hiring data for your records.</p><div class="grid g3">
+  <div class="card"><b>Candidate pipeline</b><p class="small mut">Every application with stage, scores and source.</p><button class="btn pri" onclick="exportApps()">⬇ Download CSV</button></div>
+  <div class="card"><b>Job performance</b><p class="small mut">Applicants and average AI match per job.</p><button class="btn pri" onclick="api('/jobs').then(j=>csv('jobs-report.csv',[['Job','Status','Applicants','Avg match'],...j.map(x=>[x.title,x.status,x.applicants,x.avg_match])]))">⬇ Download CSV</button></div>
+  <div class="card"><b>Interview schedule</b><p class="small mut">All interviews with interviewer and status.</p><button class="btn pri" onclick="api('/interviews').then(j=>csv('interviews.csv',[['Candidate','Job','Interviewer','When','Platform','Status'],...j.map(x=>[x.name,x.job_title,x.interviewer,x.scheduled_at,x.platform,x.status])]))">⬇ Download CSV</button></div></div>
+  <div class="card" style="margin-top:16px"><b>Printable summary</b><p class="small mut">Open the Analytics page and use your browser's Print → Save as PDF.</p><a data-go href="/analytics" class="btn">Open Analytics</a></div>`;
+};
+
+pages['/company'] = async () => {
+  const c = await api('/company');
+  const items = [['About written', !!c.about], ['Mission & values defined', !!c.mission && c.company_values.length], ['Website added', !!c.website], ['At least 2 recruiters', c.recruiters.length >= 2]];
+  const score = Math.round(items.filter((x) => x[1]).length / items.length * 100);
+  setTimeout(() => { $('#cf').onsubmit = async (e) => { e.preventDefault(); const b = Object.fromEntries(new FormData(e.target)); b.company_values = b.company_values.split('\n').map((s) => s.trim()).filter(Boolean); try { await api('/company', { method: 'PUT', body: b }); toast('Saved'); render(); } catch (x) { toast(x.message, 1); } }; });
+  return `<div class="row between wrap"><div><h1>Company Profile</h1><p class="sub">Manage your company's public identity, culture, and recruitment branding.</p></div><div class="row"><a class="btn" target="_blank" href="/careers/${c.slug}">👁 Preview</a><button class="btn" onclick="navigator.clipboard?.writeText(location.origin+'/careers/${c.slug}');toast('Careers link copied')">Share</button></div></div>
+  <div class="grid g21"><div class="grid"><div class="card" style="padding:0;overflow:hidden"><div style="height:110px;background:linear-gradient(120deg,#123d30,#4c8a70 60%,#e7e1d3)"></div><div class="row wrap" style="padding:16px;gap:24px"><div class="av" style="width:64px;height:64px;border-radius:14px;background:#123d30;font-size:26px">${esc(initials(c.name))}</div><div style="flex:1"><h2 style="margin:0">${esc(c.name)} ✅</h2><div class="small mut">${esc(c.location || '')} · ${esc(c.industry || '')}</div></div>
+   ${[['Active jobs', c.open_jobs], ['Recruiters', c.recruiters.length], ['Employees', c.employees || '—']].map(([k, v]) => `<div style="text-align:center"><div class="big" style="font-size:22px">${v}</div><div class="small mut">${k}</div></div>`).join('')}</div></div>
+   <form id="cf" class="card"><div class="grid g2"><div><label>Name</label><input class="in" name="name" value="${esc(c.name)}"></div><div><label>Industry</label><input class="in" name="industry" value="${esc(c.industry || '')}"></div><div><label>Location</label><input class="in" name="location" value="${esc(c.location || '')}"></div><div><label>Website</label><input class="in" name="website" value="${esc(c.website || '')}"></div><div><label>Employees</label><input class="in" name="employees" value="${esc(c.employees || '')}"></div><div><label>Hiring goal (hires)</label><input class="in" name="hiring_goal" value="${esc(c.hiring_goal || '')}"></div></div>
+   <label>About us</label><textarea class="in" rows="3" name="about">${esc(c.about || '')}</textarea><label>Mission</label><input class="in" name="mission" value="${esc(c.mission || '')}"><label>Values (one per line)</label><textarea class="in" rows="3" name="company_values">${esc(c.company_values.join('\n'))}</textarea><button class="btn pri" style="margin-top:12px">Save Changes</button></form></div>
+   <div class="grid" style="align-content:start"><div class="card"><div class="row between"><span class="k">Profile score</span><b style="font-size:22px">${score}%</b></div><div class="bar" style="margin:10px 0"><i style="width:${score}%"></i></div>${items.map(([k, v]) => `<div class="small" style="margin:6px 0">${v ? '✅' : '⚪'} ${k}</div>`).join('')}</div>
+   <div class="card dark"><b>✦ Careers page</b><p class="small">Candidates apply here; each resume is scored automatically.</p><a class="btn" target="_blank" href="/careers/${c.slug}">Open careers page</a></div></div></div>`;
+};
+
+pages['/recruiters'] = async () => {
+  const c = await api('/company');
+  return `<div class="row between"><div><h1>Recruiters</h1><p class="sub">Your hiring team.</p></div><button class="btn pri" onclick="invite()">＋ Invite recruiter</button></div><div class="card" style="padding:6px"><table><tr><th>Name</th><th>Email</th><th>Role</th><th>Title</th><th></th></tr>
+  ${c.recruiters.map((r) => `<tr><td><div class="row">${av(r.name, '#2f6b55', 28)}<b>${esc(r.name)}</b></div></td><td>${esc(r.email)}</td><td>${esc(r.role)}</td><td>${esc(r.title || '')}</td><td>${ME.user.role === 'admin' && r.id !== ME.user.id ? `<button class="btn small" onclick="resetPw(${r.id},this)">Reset password</button>` : ''}</td></tr>`).join('')}</table></div>`;
+};
+function invite() { modal(`<h2 style="margin-top:0">Invite recruiter</h2><form id="if"><label>Name</label><input class="in" name="name" required><label>Email</label><input class="in" name="email" type="email" required><label>Role</label><select class="in" name="role"><option value="recruiter">Recruiter</option><option value="hiring_manager">Hiring manager</option><option value="admin">Admin</option></select><label>Title</label><input class="in" name="title"><button class="btn pri" style="margin-top:12px">Create account</button></form>`, (m) => {
+  $('#if', m).onsubmit = (e) => { e.preventDefault(); busy(e.submitter, async () => { const r = await api('/recruiters', { method: 'POST', body: Object.fromEntries(new FormData(e.target)) }); m.querySelector('.card').innerHTML = `<h2>Account created</h2><p>Share this temporary password: <b style="font-size:18px">${esc(r.temp_password)}</b></p><button class="btn" onclick="this.closest('.modal').remove();render()">Done</button>`; }); };
+}); }
+
+pages['/notifications'] = async () => {
+  const n = await api('/notifications');
+  return `<div class="row between"><div><h1>Notifications</h1><p class="sub">New applications, replies and team activity.</p></div><button class="btn" onclick="api('/notifications/read-all',{method:'POST'}).then(render)">Mark all read</button></div>
+  <div class="card">${n.map((x) => `<a data-go href="${esc(x.link || '/')}" class="row" style="padding:10px;border-bottom:1px solid #f0ede6;${x.is_read ? '' : 'background:#f3f8f5'}"><span>${x.is_read ? '⚪' : '🟢'}</span><div><b>${esc(x.title)}</b><div class="small mut">${esc(x.body || '')} · ${fmtDT(x.created_at)}</div></div></a>`).join('') || '<p class="mut">You are all caught up.</p>'}</div>`;
+};
+
+pages['/settings'] = async () => {
+  const s = await api('/settings/ai');
+  setTimeout(() => { $('#kf').onsubmit = (e) => { e.preventDefault(); busy(e.submitter, async () => { const r = await api('/settings/ai', { method: 'PUT', body: Object.fromEntries(new FormData(e.target)) }); toast('Saved — provider: ' + (r.provider || 'none')); render(); }); }; });
+  return `<h1>Settings</h1><p class="sub">AI connection and system status.</p><div class="grid g2"><div class="card"><h3 style="margin-top:0">✦ AI provider</h3>
+  <p>Status: ${s.configured ? `<span class="pill">Connected · ${esc(s.provider)} (${esc(s.source)})</span>` : '<span class="pill st-rejected">Not connected</span>'}</p>
+  <p class="small mut">Paste a <b>free</b> key: Google Gemini (aistudio.google.com/apikey, starts with AIza…) or Groq (console.groq.com/keys, starts with gsk_…). OpenRouter, OpenAI and Anthropic keys also work. The key is stored encrypted.</p>
+  <form id="kf"><label>API key</label><input class="in" name="key" type="password" placeholder="AIza… or gsk_…"><label>Model (optional — auto-detected)</label><input class="in" name="model"><div class="row" style="margin-top:12px"><button class="btn pri">Save key</button><button type="button" class="btn" onclick="testAI(this)">Test connection</button></div></form>
+  ${s.stats.lastError ? `<p class="small" style="color:var(--red)">Last error: ${esc(s.stats.lastError)}</p>` : ''}${s.stats.lastModel ? `<p class="small mut">Last model used: ${esc(s.stats.lastModel)} · ${s.stats.ok} successful calls</p>` : ''}</div>
+  <div class="card"><h3 style="margin-top:0">System</h3><p>Database: <b>${esc(s.database)}</b></p><p>Resume matcher: ${s.matcher?.ok ? `<b>Python ${esc(s.matcher.python)}</b> (pypdf ${s.matcher.pypdf ? '✓' : '✗'}, python-docx ${s.matcher.docx ? '✓' : '✗'})` : `<b style="color:var(--red)">${esc(s.matcher?.error || 'not found')}</b>`}</p>
+  <p class="small mut">Responsible AI: match and ATS scores rank candidates on skills; the final decision always stays with the recruiter.</p></div></div>`;
+};
+function testAI(b) { busy(b, async () => { const r = await api('/settings/ai/test', { method: 'POST' }); toast(`✓ ${r.message || 'Connected'} (${r.provider} · ${r.model})`); }); }
+
+pages['/help'] = async () => `<h1>Help Center</h1><p class="sub">How CareerBridge works.</p><div class="grid g2">
+ <div class="card"><b>Hiring stages</b><p>Applied → Screening → Shortlisted → Interview → Offer. Every stage change is shown to the candidate on their status page.</p></div>
+ <div class="card"><b>How AI resume matching works</b><p>A Python matcher compares resume skills and keywords with the job description: <b>Match score</b> = 50% required skills, 25% keyword similarity, 15% experience fit, 10% title fit. <b>ATS score</b> checks keywords, sections, quantified results, length and contact details. An LLM then writes strengths and growth areas. Scores support — never replace — the recruiter's judgement.</p></div>
+ <div class="card"><b>Scheduling in five steps</b><p>Choose candidate → pick date & time → choose platform (Jitsi links are generated automatically) → assign interviewer → confirm. The stage moves to Interview and the candidate is informed.</p></div>
+ <div class="card"><b>Getting applicants</b><p>Share your careers page (Company → Share). Applicants upload a PDF/DOCX resume and get a private link to follow their status and reply to messages.</p></div></div>`;
+
+
+function calendar(list) {
+  const base = new Date(); base.setDate(1); base.setMonth(base.getMonth() + (window._calM || 0));
+  const y = base.getFullYear(), mo = base.getMonth(), start = new Date(y, mo, 1 - ((new Date(y, mo, 1).getDay() + 6) % 7));
+  const cells = Array.from({ length: 42 }, (_, i) => new Date(start.getFullYear(), start.getMonth(), start.getDate() + i));
+  return `<div class="card" style="margin-top:16px"><div class="row between"><button class="btn" onclick="window._calM=(window._calM||0)-1;render()">‹</button><b>${base.toLocaleDateString(undefined, { month: 'long', year: 'numeric' })}</b><button class="btn" onclick="window._calM=(window._calM||0)+1;render()">›</button></div>
+  <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:10px">${['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => `<div class="k" style="text-align:center">${d}</div>`).join('')}
+  ${cells.map((d) => { const ev = list.filter((i) => new Date(i.scheduled_at).toDateString() === d.toDateString()); const today = d.toDateString() === new Date().toDateString();
+    return `<div style="min-height:86px;border:1px solid var(--line);border-radius:8px;padding:4px;background:${d.getMonth() === mo ? '#fff' : '#f3f1ea'};${today ? 'outline:2px solid var(--g9)' : ''}"><div class="small mut">${d.getDate()}</div>${ev.map((i) => `<a data-go href="/candidates/${i.app_id}" style="display:block;font-size:11px;background:${i.status === 'cancelled' ? '#f7e1df' : 'var(--g1)'};border-radius:4px;padding:2px 4px;margin-top:2px">${fmtTime(i.scheduled_at)} ${esc(i.name)}</a>`).join('')}</div>`; }).join('')}</div></div>`;
+}
+function resetPw(id, b) { busy(b, async () => { const r = await api(`/recruiters/${id}/reset-password`, { method: 'POST' }); modal(`<h2 style="margin-top:0">Password reset</h2><p>New temporary password: <b style="font-size:18px">${esc(r.temp_password)}</b></p><p class="small mut">Share it with the recruiter; they can change it under My Profile.</p><button class="btn" onclick="this.closest('.modal').remove()">Done</button>`); }); }
+
+pages.job = async (id) => {
+  const j = await api('/jobs/' + id); const ins = j.ai_insights;
+  const cols = ['applied', 'screening', 'shortlisted', 'interview', 'offer', 'hired', 'rejected'];
+  return `<div class="small mut"><a data-go href="/jobs">Jobs</a> › <b>${esc(j.title)}</b></div><div class="row between wrap"><div><h1>${esc(j.title)}</h1><p class="sub">${esc(j.department || '')} · ${esc(j.location || '')} · ${esc(j.work_mode || '')} · ${esc(j.employment_type || '')} · Recruiter: ${esc(j.recruiter_name || '—')}</p></div>
+  <div class="row wrap">${pill(j.status)}<select class="in" style="width:150px" onchange="if(this.value)api('/jobs/${j.id}/status',{method:'PATCH',body:{status:this.value}}).then(()=>{toast('Status updated');render()})"><option value="">Change status ▾</option>${['published', 'draft', 'paused', 'closed', 'archived'].map((s) => `<option>${s}</option>`).join('')}</select>
+  <a data-go class="btn" href="/jobs/${j.id}/edit">Edit</a><button class="btn" onclick="copyLink(${j.id})">🔗 Apply link</button><button class="btn tan" onclick="jobInsights(${j.id},this)">✦ AI insights</button></div></div>
+  <div class="grid g4">${[['Applicants', j.applications.length], ['Avg AI match', j.applications.length ? Math.round(j.applications.reduce((a, x) => a + x.match_score, 0) / j.applications.length) + '%' : '—'], ['Salary range', money(j.salary_min) + ' – ' + money(j.salary_max)], ['Experience', `${j.experience_min ?? 0}–${j.experience_max ?? '?'} yrs`]].map(([k, v]) => `<div class="card"><div class="k">${k}</div><div class="big" style="font-size:22px">${v}</div></div>`).join('')}</div>
+  <h3>Pipeline — drag a card to another column to move its stage</h3><div style="display:grid;grid-template-columns:repeat(7,minmax(150px,1fr));gap:10px;overflow-x:auto">
+  ${cols.map((c) => { const items = j.applications.filter((a) => a.stage === c); return `<div class="card" style="padding:10px;background:#f3f1ea;min-height:160px" ondragover="event.preventDefault()" ondrop="dropStage(event,'${c}')"><div class="row between">${pill(c)}<b class="small">${items.length}</b></div>
+    ${items.map((a) => `<div draggable="true" ondragstart="event.dataTransfer.setData('id','${a.id}')" class="card" style="padding:10px;margin-top:8px;cursor:grab" onclick="go('/candidates/${a.id}')"><div class="row">${av(a.name, a.avatar_color, 26)}<b class="small">${esc(a.name)}</b></div><div class="small mut" style="margin-top:4px">Match ${a.match_score}% · ATS ${a.ats_score}%</div></div>`).join('')}</div>`; }).join('')}</div>
+  <div class="grid g2" style="margin-top:16px"><div class="card"><h3 style="margin-top:0">Description</h3><p style="white-space:pre-wrap">${esc(j.description || '')}</p><h3>Requirements</h3><p style="white-space:pre-wrap">${esc(j.requirements || '')}</p><div>${j.skills.map((s) => `<span class="chip">${esc(s)}</span>`).join('')}</div></div>
+  <div class="card dark"><b>✦ AI Recruitment Insights</b>${ins ? `<div class="k" style="color:#9fd3b4;margin-top:12px">Suggested salary range</div><div class="big" style="font-size:22px">${esc(ins.currency || '')} ${Number(ins.salary_min).toLocaleString()} – ${Number(ins.salary_max).toLocaleString()}</div><p class="small">${esc(ins.salary_note)}</p><div class="k" style="color:#9fd3b4">Market competition</div><p>${esc(ins.competition)} — ${esc(ins.competition_note)}</p><ul>${(ins.posting_tips || []).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '<p class="small">Click “AI insights” to get a salary estimate, competition level and posting tips.</p>'}</div></div>`;
+};
+async function dropStage(e, stage) { e.preventDefault(); const id = e.dataTransfer.getData('id'); if (!id) return; try { await api(`/applications/${id}/stage`, { method: 'PATCH', body: { stage } }); toast('Moved to ' + stage + ' — candidate informed'); render(); } catch (x) { toast(x.message, 1); } }
+
+pages['/profile'] = async () => {
+  setTimeout(() => {
+    $('#pf').onsubmit = (e) => { e.preventDefault(); busy(e.submitter, async () => { await api('/me', { method: 'PUT', body: Object.fromEntries(new FormData(e.target)) }); ME = null; toast('Profile saved'); render(); }); };
+    $('#pw').onsubmit = (e) => { e.preventDefault(); const b = Object.fromEntries(new FormData(e.target)); if (b.next !== b.confirm) return toast('New passwords do not match', 1); busy(e.submitter, async () => { await api('/me/password', { method: 'POST', body: b }); e.target.reset(); toast('Password changed'); }); };
+  });
+  const u = ME.user;
+  return `<h1>My Profile</h1><p class="sub">Your account details and password.</p><div class="grid g2"><form id="pf" class="card"><div class="row" style="margin-bottom:8px">${av(u.name, '#123d30', 56)}<div><b>${esc(u.name)}</b><div class="small mut">${esc(u.email)} · ${esc(u.role)}</div></div></div>
+  <label>Full name</label><input class="in" name="name" value="${esc(u.name)}" required><label>Job title</label><input class="in" name="title" value="${esc(u.title || '')}"><label>Phone</label><input class="in" name="phone"><button class="btn pri" style="margin-top:12px">Save profile</button></form>
+  <form id="pw" class="card"><h3 style="margin-top:0">Change password</h3><label>Current password</label><input class="in" type="password" name="current" required><label>New password</label><input class="in" type="password" name="next" minlength="6" required><label>Confirm new password</label><input class="in" type="password" name="confirm" minlength="6" required><button class="btn pri" style="margin-top:12px">Change password</button>
+  <p class="small mut">Forgot your password? Ask your organisation admin to reset it from the Recruiters page.</p></form></div>`;
+};
+pages.notFound = async () => `<div class="card" style="text-align:center;padding:60px"><div style="font-size:60px">🧭</div><h1>Page not found</h1><p class="sub">This page doesn't exist or was moved.</p><a data-go href="/" class="btn pri">Back to Dashboard</a></div>`;
+
+// ---------------------------------------------------------------- public pages
+async function careers(slug, jobId) {
+  let c; try { c = await api('/public/' + slug); } catch (e) { root.innerHTML = `<div class="card" style="max-width:520px;margin:80px auto;text-align:center"><h1>Careers page not found</h1><p class="sub">Check the link you were given.</p></div>`; return; } document.title = c.name + ' – Careers';
+  const j = jobId && c.jobs.find((x) => x.id == jobId);
+  root.innerHTML = `<div style="background:var(--g9);color:#fff;padding:36px 24px"><div style="max-width:900px;margin:auto"><div class="small" style="opacity:.7">Careers at</div><h1 style="color:#fff;font-size:36px">${esc(c.name)}</h1><p>${esc(c.about || '')}</p></div></div>
+  <div style="max-width:900px;margin:24px auto;padding:0 16px">${j ? `<a href="/careers/${slug}" data-go class="small">← All jobs</a><div class="card" style="margin-top:12px"><h2 style="margin-top:0">${esc(j.title)}</h2><p class="mut">${esc(j.department || '')} · ${esc(j.location || '')} · ${esc(j.work_mode || '')} · ${esc(j.employment_type || '')}</p>
+   <p style="white-space:pre-wrap">${esc(j.description || '')}</p><h3>Requirements</h3><p style="white-space:pre-wrap">${esc(j.requirements || '')}</p><div>${j.skills.map((s) => `<span class="chip">${esc(s)}</span>`).join('')}</div></div>
+   <form id="apf" class="card" style="margin-top:16px"><h2 style="margin-top:0">Apply for this job</h2><div class="grid g2"><div><label>Full name *</label><input class="in" name="name" required></div><div><label>Email *</label><input class="in" type="email" name="email" required></div><div><label>Phone</label><input class="in" name="phone"></div><div><label>City</label><input class="in" name="location"></div><div><label>LinkedIn</label><input class="in" name="linkedin"></div><div><label>Notice period / availability</label><input class="in" name="availability"></div></div>
+   <label>Resume (PDF, DOCX or TXT, max 5 MB) *</label><input class="in" type="file" name="resume" accept=".pdf,.docx,.txt" required><label>Cover note</label><textarea class="in" name="cover_letter" rows="3"></textarea>
+   <p class="small mut">Your resume is assessed on job-relevant skills only. A recruiter makes the final decision.</p><button class="btn pri">Submit application</button></form>`
+   : `<h2>Open positions (${c.jobs.length})</h2>${c.jobs.map((x) => `<a data-go href="/careers/${slug}/${x.id}" class="card row between" style="margin:10px 0"><div><b>${esc(x.title)}</b><div class="small mut">${esc(x.department || '')} · ${esc(x.location || '')} · ${esc(x.work_mode || '')}</div></div><span class="btn pri">Apply →</span></a>`).join('') || '<p class="mut">No open roles right now.</p>'}`}
+  <p class="small mut" style="text-align:center;margin-top:30px">Powered by CareerBridge</p></div>`;
+  const f = $('#apf'); if (f) f.onsubmit = (e) => { e.preventDefault(); busy(e.submitter, async () => { const r = await api(`/public/${slug}/jobs/${jobId}/apply`, { method: 'POST', body: new FormData(f) }); go('/status/' + r.token); }); };
+}
+async function status(token) {
+  let a; try { a = await api('/status/' + token); } catch (e) { root.innerHTML = `<div class="card" style="max-width:520px;margin:80px auto;text-align:center"><h1>Application not found</h1><p class="sub">Use the private status link you received after applying.</p></div>`; return; } const idx = ['applied', 'screening', 'shortlisted', 'interview', 'offer'].indexOf(a.stage === 'hired' ? 'offer' : a.stage);
+  root.innerHTML = `<div style="max-width:760px;margin:30px auto;padding:0 16px"><div class="card"><div class="small mut">${esc(a.company)} · Application status</div><h1>${esc(a.job_title)}</h1><p>Hi ${esc(a.name)}, thanks for applying on ${fmtDate(a.created_at)}. Bookmark this page to follow your application.</p>
+  ${a.stage === 'rejected' ? '<p class="pill st-rejected">This application is closed. Thank you for your interest.</p>' : `<div class="row" style="gap:4px;margin:16px 0">${['Applied', 'Screening', 'Shortlisted', 'Interview', 'Offer'].map((s, i) => `<div style="flex:1;text-align:center"><div style="height:8px;border-radius:4px;background:${i <= idx ? 'var(--g9)' : 'var(--line)'}"></div><div class="small" style="margin-top:6px;${i === idx ? 'font-weight:800' : ''}">${s}</div></div>`).join('')}</div>`}
+  ${a.interviews.map((i) => `<div class="card dark" style="margin:10px 0"><b>📅 ${esc(i.type)}</b><div>${fmtDT(i.scheduled_at)} · ${esc(i.platform)}</div>${i.meeting_link ? `<a class="btn" style="margin-top:8px;display:inline-block" target="_blank" href="${esc(i.meeting_link)}">Join meeting</a>` : ''}${i.location ? `<div>${esc(i.location)}</div>` : ''}</div>`).join('')}</div>
+  <div class="card" style="margin-top:16px"><h3 style="margin-top:0">Messages</h3>${a.messages.map((m) => `<div class="msg ${m.sender_type === 'candidate' ? 'recruiter' : m.sender_type === 'system' ? 'system' : 'candidate'}">${m.sender_type === 'recruiter' ? `<div class="small mut">${esc(a.company)} · ${fmtDT(m.sent_at)}</div>` : ''}${esc(m.body)}</div>`).join('') || '<p class="mut">No messages yet.</p>'}
+  <textarea class="in" id="rb" rows="3" placeholder="Reply to the hiring team…"></textarea><button class="btn pri" style="margin-top:8px" onclick="busy(this,async()=>{await api('/status/${token}/messages',{method:'POST',body:{body:$('#rb').value}});toast('Sent');status('${token}')})">Send reply</button></div></div>`;
+}
+
+// ---------------------------------------------------------------- router
+const root = $('#root');
+async function render() {
+  const p = location.pathname; let m;
+  try {
+    if ((m = p.match(/^\/careers\/([^/]+)(?:\/(\d+))?/))) return careers(m[1], m[2]);
+    if ((m = p.match(/^\/status\/([^/]+)/))) return status(m[1]);
+    if (p === '/login' || !TOKEN) return pages.login();
+    if (!ME) ME = await api('/me');
+    let body, active = p;
+    if ((m = p.match(/^\/candidates\/(\d+)/))) { body = await pages.candidate(m[1]); active = '/candidates'; }
+    else if (p === '/jobs/new') { body = await pages.jobForm(); active = '/jobs'; }
+    else if ((m = p.match(/^\/jobs\/(\d+)\/edit/))) { body = await pages.jobForm(m[1]); active = '/jobs'; }
+    else if ((m = p.match(/^\/jobs\/(\d+)$/))) { body = await pages.job(m[1]); active = '/jobs'; }
+    else body = await (pages[p] || pages.notFound)();
+    root.innerHTML = shell(active, body); bindSearch();
+    if (location.hash) setTimeout(() => document.getElementById(location.hash.slice(1))?.scrollIntoView(), 50);
+  } catch (e) { toast(e.message, 1); if (!TOKEN) pages.login(); }
+}
+render();
+</script>
+</body>
+</html>
