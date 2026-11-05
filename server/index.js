@@ -33,7 +33,7 @@ async function auth(req) {
   const t = String(req.get('authorization') || '').replace(/^Bearer\s+/i, '');
   const p = sec.verifyToken(t);
   if (!p || p.kind) throw new HttpError(401, 'Please sign in');
-  const u = await db.get('SELECT id, company_id, name, email, role, title FROM recruiters WHERE id = ?', [p.uid]);
+  const u = await db.get('SELECT id, company_id, name, email, role, title, phone, avatar_url FROM recruiters WHERE id = ?', [p.uid]);
   if (!u) throw new HttpError(401, 'Please sign in');
   req.user = u;
   return u;
@@ -135,7 +135,9 @@ app.get('/api/me', A(async (req, res) => {
 
 app.put('/api/me', A(async (req, res) => {
   U.requireFields(req.body, ['name']);
-  await db.update('recruiters', req.user.id, { name: req.body.name, title: req.body.title, phone: req.body.phone || null });
+  const img = req.body.avatar_url;
+  if (img && (!/^data:image\/(png|jpe?g|webp);base64,/.test(img) || img.length > 400000)) throw new HttpError(400, 'Photo must be a PNG/JPG under 300 KB');
+  await db.update('recruiters', req.user.id, { name: req.body.name, title: req.body.title, phone: req.body.phone || null, avatar_url: img === '' ? null : img });
   res.json({ ok: true });
 }));
 app.post('/api/me/password', A(async (req, res) => {

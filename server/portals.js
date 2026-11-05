@@ -28,6 +28,13 @@ module.exports = function portals(app, { db, sec, ai, matcher, U, HttpError, rea
     if (!req.uni) throw new HttpError(401, 'Please sign in');
     return fn(req, res);
   };
+  const checkImg = (img) => { if (img && (!/^data:image\/(png|jpe?g|webp);base64,/.test(img) || img.length > 400000)) throw new HttpError(400, 'Image must be a PNG/JPG under 300 KB'); return img === '' ? null : img; };
+  async function changePw(table, id, b) {
+    const row = await db.get(`SELECT password_hash FROM ${table} WHERE id = ?`, [id]);
+    if (!sec.verifyPassword(b.current || '', row.password_hash)) throw new HttpError(400, 'Current password is wrong');
+    if (String(b.next || '').length < 6) throw new HttpError(400, 'New password must be at least 6 characters');
+    await db.update(table, id, { password_hash: sec.hashPassword(b.next) });
+  }
   const publicStudent = (s) => {
     const { password_hash, resume_text, ...rest } = s;
     return { ...rest, has_resume: !!resume_text, skills: U.parseJSON(s.skills, []), resume_feedback: U.parseJSON(s.resume_feedback, null) };
@@ -65,9 +72,10 @@ module.exports = function portals(app, { db, sec, ai, matcher, U, HttpError, rea
       if (!u) throw new HttpError(400, 'University code not found');
       uniId = u.id;
     }
-    await db.update('students', req.student.id, { name: b.name, phone: b.phone, degree: b.degree, grad_year: U.toIntOrNull(b.grad_year), location: b.location, linkedin_url: b.linkedin_url, university_id: uniId });
+    await db.update('students', req.student.id, { name: b.name, phone: b.phone, degree: b.degree, grad_year: U.toIntOrNull(b.grad_year), location: b.location, linkedin_url: b.linkedin_url, bio: b.bio, university_id: uniId, avatar_url: b.avatar_url !== undefined ? checkImg(b.avatar_url) : undefined });
     res.json({ ok: true });
   }));
+  app.post('/api/s/password', S(async (req, res) => { await changePw('students', req.student.id, req.body); res.json({ ok: true }); }));
   app.post('/api/s/resume', S(async (req, res) => {
     const { files } = await readMultipart(req);
     const f = files.resume;
@@ -193,6 +201,13 @@ Return JSON: {"overall_score":0-100,"verdict":"one sentence","communication":0-1
     const { password_hash, ...uni } = req.uni;
     res.json({ university: uni, ...d, companies, recent: d.apps.sort((a, b) => (a.created_at < b.created_at ? 1 : -1)).slice(0, 10).map((a) => ({ ...a, student: d.students.find((s) => s.id === a.student_id)?.name })) });
   }));
+  app.put('/api/u/profile', UNI(async (req, res) => {
+    const b = req.body;
+    U.requireFields(b, ['name']);
+    await db.update('universities', req.uni.id, { name: b.name, location: b.location, officer_name: b.officer_name, phone: b.phone, website: b.website, logo_url: b.logo_url !== undefined ? checkImg(b.logo_url) : undefined });
+    res.json({ ok: true });
+  }));
+  app.post('/api/u/password', UNI(async (req, res) => { await changePw('universities', req.uni.id, req.body); res.json({ ok: true }); }));
   app.get('/api/u/students/:id', UNI(async (req, res) => {
     const s = await db.get('SELECT * FROM students WHERE id = ? AND university_id = ?', [req.params.id, req.uni.id]);
     if (!s) throw new HttpError(404, 'Student not found');

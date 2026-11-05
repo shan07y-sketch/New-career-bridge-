@@ -10,7 +10,7 @@ const TABLES = [
     name: 'universities',
     columns: [
       ['id', 'pk'], ['name', 'str!'], ['code', 'str!', { unique: true }], ['location', 'str'], ['officer_name', 'str'],
-      ['officer_email', 'str', { unique: true }], ['password_hash', 'str'], ['created_at', 'date!'],
+      ['officer_email', 'str', { unique: true }], ['password_hash', 'str'], ['created_at', 'date!'], ['logo_url', 'longtext'], ['phone', 'str'], ['website', 'str'],
     ],
   },
   {
@@ -19,7 +19,7 @@ const TABLES = [
       ['id', 'pk'], ['university_id', 'fk:universities', { onDelete: 'SET NULL' }], ['name', 'str!'], ['email', 'str!', { unique: true }],
       ['password_hash', 'str!'], ['phone', 'str'], ['degree', 'str'], ['grad_year', 'int'], ['location', 'str'], ['linkedin_url', 'str'],
       ['resume_text', 'longtext'], ['resume_file', 'str'], ['resume_name', 'str'], ['skills', 'text'], ['resume_feedback', 'text'],
-      ['avatar_color', 'str'], ['created_at', 'date!'],
+      ['avatar_color', 'str'], ['created_at', 'date!'], ['avatar_url', 'longtext'], ['bio', 'text'],
     ],
   },
   {
@@ -46,7 +46,7 @@ const TABLES = [
       ['id', 'pk'], ['company_id', 'fk:companies!', { onDelete: 'CASCADE' }], ['name', 'str!'],
       ['email', 'str!', { unique: true }], ['password_hash', 'str!'], ['role', 'str!'], ['title', 'str'], ['phone', 'str'],
       ['bio', 'text'], ['avatar_color', 'str'], ['status', 'str'], ['prefs', 'text'], ['last_login_at', 'date'],
-      ['created_at', 'date!'],
+      ['created_at', 'date!'], ['avatar_url', 'longtext'],
     ],
     indexes: [['company_id']],
   },

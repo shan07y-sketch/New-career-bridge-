@@ -99,7 +99,7 @@ const fmtTime = (d) => new Date(d).toLocaleTimeString([], { hour: '2-digit', min
 const fmtDT = (d) => `${fmtDate(d)}, ${fmtTime(d)}`;
 const money = (n) => n ? '₹' + (n >= 100000 ? (n / 100000).toFixed(1).replace('.0', '') + 'L' : n.toLocaleString('en-IN')) : '—';
 const initials = (n) => String(n || '?').split(' ').map((p) => p[0]).slice(0, 2).join('').toUpperCase();
-const av = (n, c, s = 34) => `<span class="av" style="background:#111;width:${s}px;height:${s}px;font-size:${s / 2.6}px">${esc(initials(n))}</span>`;
+const av = (n, c, s = 34, img) => img ? `<img class="av" src="${img}" alt="" style="width:${s}px;height:${s}px;object-fit:cover">` : `<span class="av" style="background:#111;width:${s}px;height:${s}px;font-size:${s / 2.6}px">${esc(initials(n))}</span>`;
 const pill = (s) => `<span class="pill st-${s}">${esc(cap(s))}</span>`;
 const ico = { dash: '▦', jobs: '💼', cand: '👥', int: '📅', msg: '💬', ana: '📈', rep: '📄', co: '🏢', rec: '🧑‍💼', bell: '🔔', set: '⚙️', help: '❓' };
 
@@ -129,7 +129,7 @@ function shell(active, body) {
   <div style="height:12px"></div><a data-go href="/help" class="nav ${active === '/help' ? 'on' : ''}">${ico.help} Help Center</a><a class="nav" style="color:var(--red)" onclick="logout()">${I('out')} Log Out</a>
   <a data-go href="/jobs/new" class="btn pri post">＋ Post a New Job</a></aside>
   <div class="shade" onclick="toggleMenu(false)"></div><div class="main"><div class="top"><button id="menuBtn" onclick="toggleMenu()" aria-label="Menu">☰</button><div class="search"><input id="gs" placeholder="Search candidates, jobs…" autocomplete="off"><div class="drop" id="gsd"></div></div><div style="flex:1"></div>
-  <button id="installBtn" class="btn pri small" onclick="installApp()">⬇ Install app</button><a data-go href="/notifications" title="Notifications">${I('bell')}</a><a data-go href="/profile" class="row"><div style="text-align:right"><b>${esc(ME.user.name)}</b><div class="small mut">${esc(ME.user.title || '')} · ${esc(ME.company.name)}</div></div>${av(ME.user.name, '#0a0a0a', 36)}</a></div>
+  <button id="installBtn" class="btn pri small" onclick="installApp()">⬇ Install app</button><a data-go href="/notifications" title="Notifications">${I('bell')}</a><a data-go href="/profile" class="row"><div style="text-align:right"><b>${esc(ME.user.name)}</b><div class="small mut">${esc(ME.user.title || '')} · ${esc(ME.company.name)}</div></div>${av(ME.user.name, '#0a0a0a', 36, ME.user.avatar_url)}</a></div>
   <div class="page" id="page">${body}</div></div>${bnav([['/', 'dash', 'Home'], ['/jobs', 'jobs', 'Jobs'], ['/candidates', 'cand', 'Candidates'], ['/interviews', 'int', 'Interviews'], ['/messages', 'msg', 'Inbox']], active)}</div>`;
 }
 function bindSearch() {
@@ -552,6 +552,7 @@ async function render() {
 }
 </script>
 <script src="/portals.js"></script>
+<script src="/ui.js"></script>
 <script>
 (async () => {
   const hide = isApp && !sessionStorage.getItem('cb_splash') ? showSplash() : null;

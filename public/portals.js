@@ -36,7 +36,7 @@ function pShell(kind, nav, active, user, body) {
   ${nav.map(([h, i, l]) => `<a data-go href="${h}" class="nav ${active === h ? 'on' : ''}">${I(i)}${l}</a>`).join('')}
   <div style="height:12px"></div><a class="nav" style="color:var(--red)" onclick="localStorage.removeItem('${kind === 's' ? 'cb_stoken' : 'cb_utoken'}');go('${kind === 's' ? '/student/login' : '/university/login'}')">${I('out')} Log Out</a></aside>
   <div class="shade" onclick="toggleMenu(false)"></div><div class="main"><div class="top"><button id="menuBtn" onclick="toggleMenu()" aria-label="Menu">☰</button><b style="display:flex;gap:8px;align-items:center">${I('logo')}${kind === 's' ? 'Student' : 'Placement Cell'}</b><div style="flex:1"></div>
-  <button id="installBtn" class="btn pri small" onclick="installApp()">⬇ Install app</button><a class="row"><div style="text-align:right"><b>${esc(user.name)}</b><div class="small mut">${esc(user.sub || '')}</div></div>${av(user.name, user.color || '#0a0a0a', 36)}</a></div>
+  <button id="installBtn" class="btn pri small" onclick="installApp()">⬇ Install app</button><a class="row"><div style="text-align:right"><b>${esc(user.name)}</b><div class="small mut">${esc(user.sub || '')}</div></div>${av(user.name, user.color || '#0a0a0a', 36, user.img)}</a></div>
   <div class="page">${body}</div></div>${bnav(nav, active)}</div>`;
 }
 
@@ -128,7 +128,7 @@ async function studentRender(p) {
   if (p === '/student/login' || !P.tok('cb_stoken')) return portalLogin('s');
   const me = await P.call('s', '/me');
   const body = await (sp[p] || sp['/student'])(me);
-  root.innerHTML = pShell('s', SNAV, sp[p] ? p : '/student', { name: me.name, sub: me.university_name || 'Student', color: me.avatar_color }, body);
+  root.innerHTML = pShell('s', SNAV, sp[p] ? p : '/student', { name: me.name, sub: me.university_name || 'Student', color: me.avatar_color, img: me.avatar_url }, body);
 }
 
 // ============================ UNIVERSITY ============================
@@ -157,5 +157,5 @@ async function uniRender(p) {
   if (p === '/university/login' || !P.tok('cb_utoken')) return portalLogin('u');
   const d = await P.call('u', '/dashboard');
   const body = await (up[p] || up['/university'])(d);
-  root.innerHTML = pShell('u', UNAV, up[p] ? p : '/university', { name: d.university.officer_name || 'Placement Officer', sub: d.university.code }, body);
+  root.innerHTML = pShell('u', UNAV, up[p] ? p : '/university', { name: d.university.officer_name || 'Placement Officer', sub: d.university.code, img: d.university.logo_url }, body);
 }
