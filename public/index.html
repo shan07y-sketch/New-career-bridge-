@@ -85,6 +85,9 @@ h1{font-size:23px}.big{font-size:24px}table{display:block;overflow-x:auto;white-
  .toast{left:14px;right:14px;bottom:90px;max-width:none;text-align:center;border-radius:14px}.modal{align-items:flex-end;padding:0}.modal .card{border-radius:22px 22px 0 0;width:100%;animation:sheet .25s ease}
  @keyframes sheet{from{transform:translateY(40px);opacity:.5}}
 }
+details.signup{margin-top:14px}details.signup>summary{list-style:none;cursor:pointer;text-align:center;border:1.5px solid #111;border-radius:12px;padding:12px;font-size:14px;transition:background .15s}
+details.signup>summary::-webkit-details-marker{display:none}details.signup>summary:hover{background:#f4f4f4}details.signup[open]>summary{background:#111;color:#fff;margin-bottom:6px}
+details.signup[open]>form{animation:rise .3s ease both}
 </style>
 </head>
 <body>
@@ -146,7 +149,7 @@ pages.login = () => {
   root.innerHTML = `<div class="login"><div class="l"><h1 style="color:#fff;font-size:40px">CareerBridge</h1><p style="font-size:18px;line-height:1.6">Recruitment Management Portal — post jobs, rank candidates with AI resume matching, schedule interviews and keep every applicant informed.</p><p class="small" style="opacity:.7">Leo Club of Hopeville · Community Connect · ORIGEN</p></div>
   <div class="r"><div class="card" style="width:400px">${roleTabs('Employer')}<h2 style="margin-top:0">Sign in</h2><form id="f"><label>Email</label><input class="in" name="email" value="sarah.jenkins@example.com"><label>Password</label><input class="in" type="password" name="password" value="demo1234">
   <button class="btn pri" style="width:100%;margin-top:16px">Sign in</button></form><p class="small mut">Demo: sarah.jenkins@example.com / demo1234</p><hr style="border:none;border-top:1px solid var(--line)">
-  <details><summary class="small" style="cursor:pointer">Register a new organisation</summary><form id="rf"><label>Organisation</label><input class="in" name="company" required><label>Your name</label><input class="in" name="name" required><label>Email</label><input class="in" name="email" type="email" required><label>Password</label><input class="in" name="password" type="password" minlength="6" required><button class="btn" style="width:100%;margin-top:12px">Create account</button></form></details></div></div></div>`;
+  <details class="signup"><summary>New here? <b>Create an employer account</b></summary><form id="rf"><label>Organisation</label><input class="in" name="company" required><label>Your name</label><input class="in" name="name" required><label>Email</label><input class="in" name="email" type="email" required><label>Password</label><input class="in" name="password" type="password" minlength="6" required><button class="btn" style="width:100%;margin-top:12px">Create account</button></form></details></div></div></div>`;
   const done = (r) => { TOKEN = r.token; localStorage.setItem('cb_token', TOKEN); go('/'); };
   $('#f').onsubmit = async (e) => { e.preventDefault(); try { done(await api('/auth/login', { method: 'POST', body: Object.fromEntries(new FormData(e.target)) })); } catch (x) { toast(x.message, 1); } };
   $('#rf').onsubmit = async (e) => { e.preventDefault(); try { done(await api('/auth/register', { method: 'POST', body: Object.fromEntries(new FormData(e.target)) })); } catch (x) { toast(x.message, 1); } };
